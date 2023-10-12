@@ -8,11 +8,11 @@ import { BrowserRouter, Route, RouterProvider, Routes } from "react-router-dom";
 import router from "./router/router";
 function App() {
   return (
-    <RouterProvider router={router}>
-      {/* <NavBar />
-      <Banner />
-      <BookCart/> */}
-    </RouterProvider>
+   
+    <RouterProvider router={router} />
+    
+
+   
   );
 }
 
