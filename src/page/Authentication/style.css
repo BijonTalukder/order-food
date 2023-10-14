@@ -22,7 +22,7 @@ input:focus,textarea:focus{
   content: '';
   height: 420px;
 
-  animation-delay: -3s;
+  /* animation-delay: -1s; */
   width: 380px;
   z-index: 1;
   position: absolute;
@@ -36,11 +36,11 @@ input:focus,textarea:focus{
   content: '';
   height: 420px;
 
-  animation-delay: -3s;
+  animation-delay: -3s!important;
   width: 380px;
   z-index: 1;
   position: absolute;
-  background: linear-gradient(0deg, transparent,transparent,#45f3ff,#45f3ff);
+  background: linear-gradient(0deg, transparent,transparent,#f6782a,#45f3ff);
  transform-origin: bottom right;
   animation: animate 6s linear infinite;
 } 
@@ -117,4 +117,22 @@ input:focus,textarea:focus{
 .box form .inputBox input:valid ~ i,
 .box form .inputBox input:focus ~ i{
   height: 44px;
+}
+
+.box form input[type="submit"]{
+  /* position: absolute; */
+  margin: 20px 0px 0px 0px;
+  padding: 10px;
+  width: 300px;
+  color: #353434;
+  background-color: white;
+  /* pointer-events: painted; */
+  cursor: pointer;
+  transition: 0.5s linear;
+
+}
+.box form input[type="submit"]:hover{
+  background: linear-gradient(45deg, rgb(41, 219, 41), rgb(162, 169, 18));
+  color: #fff;
+  background-position: 45deg;
 }
