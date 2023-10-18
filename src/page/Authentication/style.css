@@ -9,14 +9,14 @@ input:focus,textarea:focus{
   min-height: 100vh;
   background-color: #23242a;
 }
-.box{
+.registration .box{
   overflow: hidden;
   width: 380px;
   height: 420px;
   background-color: #1c1c1c;
   position: relative;
 }
-.box::after{
+.registration .box::after{
   top: -50%;
   left: -50%;
   content: '';
@@ -30,7 +30,7 @@ input:focus,textarea:focus{
  transform-origin: bottom right;
   animation: animate 6s linear infinite;
 } 
-.box::before{
+.registration .box::before{
   top: -50%;
   left: -50%;
   content: '';
@@ -52,7 +52,7 @@ input:focus,textarea:focus{
     transform: rotate(360deg);
   }
 }
-.box form{
+.registration .box form{
   position: absolute;
   inset: 4px;
   background-color: #222;
@@ -63,20 +63,20 @@ input:focus,textarea:focus{
   display: flex;
   flex-direction: column;
 }
-.box form h2{
+.registration .box form h2{
   color: white;
   font-weight: 500;
   text-align: center;
   letter-spacing: 0.1em;
 }
-.box form .inputBox{
+.registration .box form .inputBox{
 
   position: relative;
   width: 300px;
   margin-top: 35px;
   
 }
-.box form .inputBox input{
+.registration .box form .inputBox input{
   position: relative;
   width: 100%;
   border: none;
@@ -86,7 +86,7 @@ input:focus,textarea:focus{
   transition: 0.5s;
   z-index: 10;
 }
-.box form .inputBox  span
+.registration .box form .inputBox  span
 {
   position: absolute;
   left: 0;
@@ -95,15 +95,15 @@ input:focus,textarea:focus{
   pointer-events: none;
   transition: 0.5s;
 }
-.box form .inputBox input:valid ~ span,
-.box form .inputBox input:focus ~ span
+.registration .box form .inputBox input:valid ~ span,
+.registration .box form .inputBox input:focus ~ span
 {
   color: #fff;
   font-size: 0.75em;
   transform: translateY(-34px);
 }
 
-.box form .inputBox i{
+.registration .box form .inputBox i{
   position: absolute;
   left: 0;
   bottom: 0;
@@ -114,12 +114,12 @@ input:focus,textarea:focus{
   pointer-events: none;
   overflow: hidden;
 }
-.box form .inputBox input:valid ~ i,
-.box form .inputBox input:focus ~ i{
+.registration .box form .inputBox input:valid ~ i,
+.registration .box form .inputBox input:focus ~ i{
   height: 44px;
 }
 
-.box form input[type="submit"]{
+.registration .box form input[type="submit"]{
   /* position: absolute; */
   margin: 20px 0px 0px 0px;
   padding: 10px;
