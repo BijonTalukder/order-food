@@ -23,9 +23,12 @@ export const createUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   "user/login",
   async (payload: ILoginUser) => {
-    const data = await axios.post(`${BaseUrl}/auth/login`);
-    console.log(data);
-    
+    const data = await axios.post(`${BaseUrl}/auth/login`, payload);
+    console.log(data.data.data);
+    localStorage.setItem("token", data.data.data.token);
+    localStorage.setItem("user", JSON.stringify(data.data.data.user));
+    return data.data.data;
+    // console.log(data);
   }
 );
 
@@ -34,6 +37,7 @@ const initialState = {
     email: null,
   },
   //   email:null,
+  token: null,
   isLoading: false,
   isError: false,
   error: null,
@@ -44,6 +48,9 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.userData.email = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -63,8 +70,26 @@ export const userSlice = createSlice({
         state.userData.email = null;
         state.isError = true;
         state.error = action.error.message!;
+      })
+
+      .addCase(loginUser.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.error = null;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        console.log(action.payload, "fullfiled ");
+
+        state.token = action.payload.token;
+        state.userData = action.payload.user;
+        state.isLoading = false;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.token = null;
+        state.isError = true;
+        state.error = action.error.message!;
       });
   },
 });
-// export const {} = userSlice.actions
+export const { setLoading, setUser } = userSlice.actions;
 export default userSlice.reducer;
