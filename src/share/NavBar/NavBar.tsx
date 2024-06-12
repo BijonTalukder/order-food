@@ -1,5 +1,16 @@
 import { FaUserAlt, FaSearch } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { setUser } from "../../redux/feature/Auth/AuthSlice";
 const NavBar = () => {
+  const userData = useSelector((state) => state.user.userData);
+  const dispatch = useDispatch();
+  console.log(userData, "nav");
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    dispatch(setUser(null));
+  };
   return (
     <div className="NavBar">
       <div className="navbar bg-base-100">
@@ -82,8 +93,16 @@ const NavBar = () => {
         </div>
         <div className="navbar-end">
           <div className="flex items-center justify-between">
-            <p>Sign In</p>
-            <FaUserAlt />
+            {userData ? (
+              <>
+                <button onClick={handleLogout}>LogOut</button>{" "}
+              </>
+            ) : (
+              <>
+                <Link to={"/Login"}>Sign IN</Link>
+                <Link to={"/Sign-up"}>Sign up</Link>
+              </>
+            )}
           </div>
         </div>
       </div>

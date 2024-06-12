@@ -1,24 +1,32 @@
-import { useState } from 'react';
-import '../../../public/Assets/CSS/ComponentCSS/login.scss'
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../../redux/feature/Auth/AuthSlice';
+import { useState, useEffect } from "react";
+import "../../../public/Assets/CSS/ComponentCSS/login.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../redux/feature/Auth/AuthSlice";
+import { useNavigate } from "react-router-dom";
 
-type ILoginUser ={
-  email:string;
-  password:string;
+type ILoginUser = {
+  email: string;
+  password: string;
+};
 
-}
 const Login = () => {
-  const [data,setData] = useState({
-    email:"",
-    password:""
-  })
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+  const userData = useSelector((state) => state.user.userData);
+
   const dispatch = useDispatch();
-  const handleLogin = (e:React.FormEvent<HTMLFormElement>):void=>{
-    e.preventDefault()
-    dispatch(loginUser(data))
-    
-  }
+  const navigate = useNavigate();
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    dispatch(loginUser(data));
+  };
+  useEffect(() => {
+    if (userData) {
+      navigate("/");
+    }
+  }, [userData]);
   return (
     <div className="login">
       <div className="box">
@@ -26,13 +34,23 @@ const Login = () => {
           <h2>Sign In</h2>
 
           <div className="inputBox">
-            <input name='email' onChange={(e)=>setData({...data,email:e.target.value})} type="email" required />
+            <input
+              name="email"
+              onChange={(e) => setData({ ...data, email: e.target.value })}
+              type="email"
+              required
+            />
             <span>email </span>
             <i></i>
           </div>
 
           <div className="inputBox">
-            <input type="password" name='password' onChange={e=>setData({...data,password:e.target.value})} required />
+            <input
+              type="password"
+              name="password"
+              onChange={(e) => setData({ ...data, password: e.target.value })}
+              required
+            />
             <span>Password</span>
             <i></i>
           </div>
