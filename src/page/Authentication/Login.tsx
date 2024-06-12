@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import "../../../public/Assets/CSS/ComponentCSS/login.scss";
-import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/feature/Auth/AuthSlice";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
 
 type ILoginUser = {
   email: string;
@@ -10,23 +11,21 @@ type ILoginUser = {
 };
 
 const Login = () => {
-  const [data, setData] = useState({
+  const [data, setData] = useState<ILoginUser>({
     email: "",
     password: "",
   });
-  const userData = useSelector((state) => state.user.userData);
-
-  const dispatch = useDispatch();
+  const dispatch:AppDispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogin = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     dispatch(loginUser(data));
   };
   useEffect(() => {
-    if (userData) {
-      navigate("/");
-    }
-  }, [userData]);
+    // if (userData) {
+    //   navigate("/");
+    // }
+  }, );
   return (
     <div className="login">
       <div className="box">

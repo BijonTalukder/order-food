@@ -10,6 +10,16 @@ interface ILoginUser {
   email: string;
   password: string;
 }
+interface UserState {
+  userData: {
+    email: string | null;
+    [key: string]: any; // Assuming userData might have other properties
+  };
+  token: string | null;
+  isLoading: boolean;
+  isError: boolean;
+  error: string | null;
+}
 export const createUser = createAsyncThunk(
   "user/createUser",
   async (payload: IUser) => {
@@ -32,7 +42,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-const initialState = {
+const initialState:UserState = {
   userData: {
     email: null,
   },
