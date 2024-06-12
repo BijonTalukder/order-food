@@ -1,8 +1,8 @@
-import React from "react";
 import "./style.css";
 import { useForm } from "react-hook-form";
 import { createUser } from "../../redux/feature/Auth/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../redux/store";
 // import {} from '@/redu'
 type FormData = {
   name: string;
@@ -11,7 +11,7 @@ type FormData = {
 };
 
 const Registration = () => {
-  const dispatch = useDispatch();
+  const dispatch:AppDispatch = useDispatch();
   const {
     register,
     handleSubmit,
