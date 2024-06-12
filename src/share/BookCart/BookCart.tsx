@@ -1,4 +1,3 @@
-import React from "react";
 import "./BookCart.scss";
 const BookCart = () => {
   return (

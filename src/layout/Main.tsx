@@ -1,4 +1,3 @@
-import React from 'react';
 import NavBar from '../share/NavBar/NavBar';
 import { Outlet } from 'react-router-dom';
 import Banner from '../share/Banner/Banner';

@@ -1,12 +1,11 @@
-import React from 'react'
-import Forms from '../Forma/Forms'
-import FormInput from '../Forma/FormInput'
+// import Forms from '../Forma/Forms'
+// import FormInput from '../Forma/FormInput'
 const Formtest = () => {
   return (
     <div>
-        <Forms>
+        {/* <Forms>
             <FormInput name='test' label='test' />
-        </Forms>
+        </Forms> */}
     </div>
   )
 }

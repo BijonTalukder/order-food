@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 
 const DashboardLayout = () => {

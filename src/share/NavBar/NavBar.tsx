@@ -1,9 +1,10 @@
-import { FaUserAlt, FaSearch } from "react-icons/fa";
+import {  FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setUser } from "../../redux/feature/Auth/AuthSlice";
+import { RootState } from "../../redux/store";
 const NavBar = () => {
-  const userData = useSelector((state) => state.user.userData);
+  const userData = useSelector((state:RootState) => state.user.userData);
   const dispatch = useDispatch();
   console.log(userData, "nav");
   const handleLogout = () => {
