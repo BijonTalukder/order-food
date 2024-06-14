@@ -9,7 +9,7 @@ interface IInput{
     placeholder?:string;
     validate?:object
 }
-const FormInput = ({name,type,value,id,placeholder,validate,label}:IInput) => {
+const FormInput = ({name,type,value,placeholder,label}:IInput) => {
     const {control} = useFormContext()
   return (
     <Controller
