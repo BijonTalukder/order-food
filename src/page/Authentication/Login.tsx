@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../../../public/Assets/CSS/ComponentCSS/login.scss";
 import { loginUser } from "../../redux/feature/Auth/AuthSlice";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 
@@ -16,7 +16,7 @@ const Login = () => {
     password: "",
   });
   const dispatch:AppDispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const handleLogin = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     dispatch(loginUser(data));
