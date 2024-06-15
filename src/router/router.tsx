@@ -3,6 +3,7 @@ import Main from "../layout/Main";
 import Login from "../page/Authentication/Login";
 import Registration from "../page/Authentication/Registration";
 import DashboardLayout from "../page/DashBoards/Layout/Layout";
+import Profile from "../page/DashBoards/Profile";
 const router = createBrowserRouter([
     {
         path:'/',
@@ -17,11 +18,19 @@ const router = createBrowserRouter([
         path:'/Sign-up',
         element:<Registration/>
     },
-    {
-        path:"/dashboard"
-        ,
-        element:<DashboardLayout/>
-    }
+   {
+    
+    path:'/dashboard',
+    element:<DashboardLayout/>,
+    children:[
+        {
+            path:"profile",
+            element:<Profile/>
+        }        
+    ]
+   }
+    
+  
     // {
     //     path:'/All-Books',
     //     element:<BookC

@@ -1,4 +1,5 @@
 import { CgProfile } from "react-icons/cg";
+import { Link, Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   return (
@@ -7,12 +8,15 @@ const DashboardLayout = () => {
       <div className='side-bar'>
         <ul className='p-2 m-2  '>
           <li className='rounded-lg p-4 hover:bg-gray-700 focus:bg-green-300 '>
-            <div className="flex items-center gap-1">
+           <Link to={'/dashboard/profile'}>
+           <div className="flex items-center gap-1">
               <div>
                 <CgProfile />
               </div>
               <div>Profile</div>
             </div>
+           </Link>
+           
           </li>
           <li className='rounded-lg p-4 hover:bg-gray-700 focus:bg-green-300'>
             Order
@@ -34,7 +38,9 @@ const DashboardLayout = () => {
         </ul>
       </div>
     </div>
-    <div className='col-span-10'>{}</div>
+    <div className='col-span-10'>{
+      
+      <Outlet/>}</div>
   </div></div>
   )
 }
