@@ -4,6 +4,7 @@ import Login from "../page/Authentication/Login";
 import Registration from "../page/Authentication/Registration";
 import DashboardLayout from "../page/DashBoards/Layout/Layout";
 import Profile from "../page/DashBoards/Profile";
+import CreateProductCategory from "../page/DashBoards/Product/CreateProductCategory";
 const router = createBrowserRouter([
     {
         path:'/',
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         {
             path:"profile",
             element:<Profile/>
+        },
+        {
+            path:"category",
+            element:<CreateProductCategory/>
         }        
     ]
    }

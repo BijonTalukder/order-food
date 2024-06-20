@@ -1,3 +1,4 @@
+import FileUpload from "../../component/Forma/FileUpload/FileUpload"
 import { BreadcrumbItem } from "../../constant"
 import BradCumbs from "../../share/BradCumbs/BradCumbs"
 
@@ -41,6 +42,7 @@ const Profile = () => {
   </div>
 
 </div>
+<FileUpload/>
           </div>
        
         </div>
