@@ -42,7 +42,7 @@ const Profile = () => {
   </div>
 
 </div>
-<FileUpload/>
+<FileUpload name="b"/>
           </div>
        
         </div>
