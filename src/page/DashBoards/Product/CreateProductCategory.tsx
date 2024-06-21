@@ -1,3 +1,4 @@
+import axios from "axios"
 import FileUpload from "../../../component/Forma/FileUpload/FileUpload"
 import FormInput from "../../../component/Forma/FormInput"
 import Forms from "../../../component/Forma/Forms"
@@ -18,9 +19,29 @@ const CreateProductCategory = () => {
       iconType:"file"
     }
     ]
-    const handleCategory=(value:any)=>{
-        console.log(value)
+    const handleCategory=async(value:any)=>{
+      const obj = { ...value };
+      const file = obj["ImgUrl"]
+    
+      const formData = new FormData();
+      formData.append("file", file);
+     
+      delete obj["ImgUrl"]; 
+    formData.append("data", JSON.stringify(obj));
+       console.log(obj,value,formData)
+       try {
+        const response = await axios.post('http://localhost:5000/api/v1/productType/create', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+    
+        // Handle success
+        console.log('Category created successfully:', response.data);
+       } catch (error) {
+        console.error('Error creating category:', error);
 
+       }
     }
   return (
     <div className="shadow-sm m-3">
@@ -35,7 +56,7 @@ const CreateProductCategory = () => {
 
                 </div>
                 <div>
-                <FileUpload name="exampleFile" label="Upload File"/>
+                <FileUpload name="ImgUrl" label="Upload File"/>
 
                 </div>
                 <div>

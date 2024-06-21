@@ -18,7 +18,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   id,
 }) => {
   const { control } = useFormContext();
-  // const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -27,16 +27,16 @@ const FileUpload: React.FC<FileUploadProps> = ({
       const file = event.target.files[0];
       if (allowedTypes.includes(file.type)) {
         setLoading(true);
-        // setSelectedFile(file);
+        setSelectedFile(file);
         setFilePreview(URL.createObjectURL(file));
         onChange(file);
         if (onFileSelect) {
           onFileSelect(file);
         }
-        // Simulate an upload process
+       
         setTimeout(() => {
           setLoading(false);
-        }, 2000); // Replace with actual upload logic
+        }, 2000); 
       } else {
         alert('Selected file type is not allowed');
       }
@@ -103,14 +103,14 @@ const FileUpload: React.FC<FileUploadProps> = ({
                 <p className="text-xs font-medium text-gray-400 mt-2">
                   {allowedTypes.map(type => type.split('/')[1].toUpperCase()).join(', ')} are allowed.
                 </p>
-                {/* {selectedFile && (
+                {selectedFile && (
                   <>
                     <p className="text-xs font-medium text-gray-500 mt-2">{selectedFile.name}</p>
                     {filePreview && (
                       <img src={filePreview} alt="Preview" className="mt-2 max-w-full max-h-48" />
                     )}
                   </>
-                )} */}
+                )}
               </>
             )}
           </label>
