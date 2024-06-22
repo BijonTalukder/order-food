@@ -19,20 +19,35 @@ const CreateProductCategory = () => {
       iconType:"file"
     }
     ]
+
     const handleCategory=async(value:any)=>{
+      const formData = new FormData();
+
       const obj = { ...value };
       const file = obj["ImgUrl"]
     
-      const formData = new FormData();
       formData.append("file", file);
      
       delete obj["ImgUrl"]; 
-    formData.append("data", JSON.stringify(obj));
-       console.log(obj,value,formData)
+      const strData = JSON.stringify(obj)
+      formData.append("data", strData);
+
+      // formData.append("user",strData );
+     console.log(strData);
+    //  for (const [key, value] of formData.entries()) {
+    //   console.log(`${key}:`, value);
+    // }
+
+     
        try {
-        const response = await axios.post('http://localhost:5000/api/v1/productType/create', formData, {
+        const response = await axios.post('http://localhost:5000/api/v1/productType/create', 
+          formData,
+        // {
+        //   "name":"bijon"
+        // }, 
+        {
           headers: {
-            'Content-Type': 'multipart/form-data',
+             'Content-Type': 'multipart/form-data'
           },
         });
     
