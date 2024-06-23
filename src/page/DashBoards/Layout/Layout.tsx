@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { Link, Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
+  const [isProductOpen, setIsProductOpen] = useState(false);
+
   const data=[
     {
       icon:<CgProfile />,
@@ -40,20 +43,22 @@ const DashboardLayout = () => {
           <li className='rounded-lg p-4 hover:bg-gray-700 focus:bg-green-300'>
             Order
           </li>
-          <li   className='rounded-lg p-4 hover:bg-gray-700 focus:bg-green-300'>
+          <li    onMouseEnter={() => setIsProductOpen(true)}
+              onMouseLeave={() => setIsProductOpen(false)} className='rounded-lg p-4 hover:bg-gray-700 focus:bg-green-300'>
             Product
-            
-        <ul className='hidden group-hover:block'>
-          <li className='rounded-lg p-2 hover:bg-gray-700 focus:bg-green-300'>
-            Create Product
+            <ul className={` left-full mt-[2px] text-zinc-50 rounded-lg p-2 ${isProductOpen ? 'block' : 'hidden'}`}>
+              <li   className='hover:bg-gray-700 focus:bg-green-300'> 
+                 <Link to="/dashboard/category">Create Product</Link>
+              </li>
+           
+              <li   className='hover:bg-gray-700 focus:bg-green-300'>  
+                <Link to="/dashboard/create-product">Create Product</Link>
+              </li>
+
+            </ul>
+           
           </li>
-          <li className='rounded-lg p-2 hover:bg-gray-700 focus:bg-green-300'>
-            Product List
-          </li>
-        </ul>
-  
-          </li>
-          <li></li>
+        
         </ul>
       </div>
     </div>

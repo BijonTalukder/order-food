@@ -4,6 +4,7 @@ import FormInput from "../../../component/Forma/FormInput"
 import Forms from "../../../component/Forma/Forms"
 import { BreadcrumbItem } from "../../../constant"
 import BradCumbs from "../../../share/BradCumbs/BradCumbs"
+import Swal from "sweetalert2"
 
 const CreateProductCategory = () => {
     const BreadCumbsItems:BreadcrumbItem[]=
@@ -52,7 +53,16 @@ const CreateProductCategory = () => {
         });
     
         // Handle success
-        console.log('Category created successfully:', response.data);
+        if(response.data.statusCode==200){
+          Swal.fire({
+            icon:"success",
+            timer:2000,
+            title:response.data.message
+          })
+          
+
+        }
+        console.log('Category created successfully:', response);
        } catch (error) {
         console.error('Error creating category:', error);
 

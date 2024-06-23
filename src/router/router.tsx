@@ -5,6 +5,7 @@ import Registration from "../page/Authentication/Registration";
 import DashboardLayout from "../page/DashBoards/Layout/Layout";
 import Profile from "../page/DashBoards/Profile";
 import CreateProductCategory from "../page/DashBoards/Product/CreateProductCategory";
+import ListProductCategory from "../page/DashBoards/Product/ListProductCategory";
 const router = createBrowserRouter([
     {
         path:'/',
@@ -31,7 +32,11 @@ const router = createBrowserRouter([
         {
             path:"category",
             element:<CreateProductCategory/>
-        }        
+        }     ,
+        {
+            path:"list-category",
+            element:<ListProductCategory/>
+        }   
     ]
    }
     
