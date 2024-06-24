@@ -1,181 +1,61 @@
+import React from "react";
+import SkeletonLoader from "./SkeletonLoader";
+import Pagination from "../Pagination/Pagination";
 
-const PTable = () => {
+const PTable = ({ data, columns }: any) => {
+  const isLoading = !data || data.length === 0;
+
   return (
     <div>
-        <div className="search-filter-section shadow-md p-2 m-2">
-        <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-        </div>
-        
-        
-        <div className="overflow-x-auto  shadow-md p-2 m-2">
-    <table className="table">
-      {/* head */}
-      <thead>
-        <tr>
-          <th>
-            <label>
-              <input type="checkbox" className="checkbox" />
-            </label>
-          </th>
-          <th>Name</th>
-          <th>Job</th>
-          <th>Favorite Color</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {/* row 1 */}
-        <tr>
-          <th>
-            <label>
-              <input type="checkbox" className="checkbox" />
-            </label>
-          </th>
-          <td>
-            <div className="flex items-center gap-3">
-              <div className="avatar">
-                <div className="mask mask-squircle h-12 w-12">
-                  <img
-                    src="https://img.daisyui.com/tailwind-css-component-profile-2@56w.png"
-                    alt="Avatar Tailwind CSS Component" />
-                </div>
-              </div>
-              <div>
-                <div className="font-bold">Hart Hagerty</div>
-                <div className="text-sm opacity-50">United States</div>
-              </div>
-            </div>
-          </td>
-          <td>
-            Zemlak, Daniel and Leannon
-            <br />
-            <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
-          </td>
-          <td>Purple</td>
-          <th>
-            <button className="btn btn-ghost btn-xs">details</button>
-          </th>
-        </tr>
-        {/* row 2 */}
-        <tr>
-          <th>
-            <label>
-              <input type="checkbox" className="checkbox" />
-            </label>
-          </th>
-          <td>
-            <div className="flex items-center gap-3">
-              <div className="avatar">
-                <div className="mask mask-squircle h-12 w-12">
-                  <img
-                    src="https://img.daisyui.com/tailwind-css-component-profile-3@56w.png"
-                    alt="Avatar Tailwind CSS Component" />
-                </div>
-              </div>
-              <div>
-                <div className="font-bold">Brice Swyre</div>
-                <div className="text-sm opacity-50">China</div>
-              </div>
-            </div>
-          </td>
-          <td>
-            Carroll Group
-            <br />
-            <span className="badge badge-ghost badge-sm">Tax Accountant</span>
-          </td>
-          <td>Red</td>
-          <th>
-            <button className="btn btn-ghost btn-xs">details</button>
-          </th>
-        </tr>
-        {/* row 3 */}
-        <tr>
-          <th>
-            <label>
-              <input type="checkbox" className="checkbox" />
-            </label>
-          </th>
-          <td>
-            <div className="flex items-center gap-3">
-              <div className="avatar">
-                <div className="mask mask-squircle h-12 w-12">
-                  <img
-                    src="https://img.daisyui.com/tailwind-css-component-profile-4@56w.png"
-                    alt="Avatar Tailwind CSS Component" />
-                </div>
-              </div>
-              <div>
-                <div className="font-bold">Marjy Ferencz</div>
-                <div className="text-sm opacity-50">Russia</div>
-              </div>
-            </div>
-          </td>
-          <td>
-            Rowe-Schoen
-            <br />
-            <span className="badge badge-ghost badge-sm">Office Assistant I</span>
-          </td>
-          <td>Crimson</td>
-          <th>
-            <button className="btn btn-ghost btn-xs">details</button>
-          </th>
-        </tr>
-        {/* row 4 */}
-        <tr>
-          <th>
-            <label>
-              <input type="checkbox" className="checkbox" />
-            </label>
-          </th>
-          <td>
-            <div className="flex items-center gap-3">
-              <div className="avatar">
-                <div className="mask mask-squircle h-12 w-12">
-                  <img
-                    src="https://img.daisyui.com/tailwind-css-component-profile-5@56w.png"
-                    alt="Avatar Tailwind CSS Component" />
-                </div>
-              </div>
-              <div>
-                <div className="font-bold">Yancy Tear</div>
-                <div className="text-sm opacity-50">Brazil</div>
-              </div>
-            </div>
-          </td>
-          <td>
-            Wyman-Ledner
-            <br />
-            <span className="badge badge-ghost badge-sm">Community Outreach Specialist</span>
-          </td>
-          <td>Indigo</td>
-          <th>
-            <button className="btn btn-ghost btn-xs">details</button>
-          </th>
-        </tr>
-      </tbody>
-      {/* foot */}
-      <tfoot>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Job</th>
-          <th>Favorite Color</th>
-          <th></th>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-  <div className="pagination-section flex justify-center m-2">
-  <div className="join">
-  <button className="join-item btn">1</button>
-  <button className="join-item btn">2</button>
-  <button className="join-item btn btn-disabled">...</button>
-  <button className="join-item btn">99</button>
-  <button className="join-item btn">100</button>
-</div>
-  </div>
-  </div>
-  )
-}
+      {isLoading ? (
+        <SkeletonLoader />
+      ) : (
+        <>
+          <div className='search-filter-section shadow-md p-2 m-2'>
+            <input
+              type='text'
+              placeholder='Type here'
+              className='input input-bordered w-full max-w-xs'
+            />
+          </div>
 
-export default PTable
+          <div className='overflow-x-auto shadow-md p-2 m-2'>
+            <table className='table'>
+              <thead>
+                <tr>
+                  {columns.map((column: any) => (
+                    <th key={column.key}>{column.title}</th>
+                  ))}
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((item: any, index: any) => (
+                  <tr key={index}>
+                    {columns.map((column: any) => (
+                      <td key={column.key}>{item[column.dataIndex]}</td>
+                    ))}
+                    <td>
+                      <button className='btn btn-ghost btn-xs'>details</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr>
+                  {columns.map((column: any) => (
+                    <th key={column.key}>{column.title}</th>
+                  ))}
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <Pagination />
+        </>
+      )}
+    </div>
+  );
+};
+
+export default PTable;
