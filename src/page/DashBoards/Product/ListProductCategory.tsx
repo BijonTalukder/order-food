@@ -32,6 +32,12 @@ const ListProductCategory = () => {
   }, []);
   const dataSource = [
     {
+      key:"0",
+      name:"Img",
+      imgUrl:"asdfa"
+
+    },
+    {
       key: "1",
       name: "Mike",
       age: 32,
@@ -45,6 +51,10 @@ const ListProductCategory = () => {
     },
   ];
   const columns = [
+    {
+      ImgUrl:"",
+      dataIndex:"ImgUrl"
+    },
     {
       title: "Name",
       dataIndex: "name",

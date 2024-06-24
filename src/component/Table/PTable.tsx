@@ -32,9 +32,32 @@ const PTable = ({ data, columns }: any) => {
               <tbody>
                 {data.map((item: any, index: any) => (
                   <tr key={index}>
-                    {columns.map((column: any) => (
-                      <td key={column.key}>{item[column.dataIndex]}</td>
-                    ))}
+                    {columns.map((column: any) => 
+                      {
+                        if(column.dataIndex=="ImgUrl")
+                          {
+                            return <td>
+                            <div className="flex items-center gap-3">
+                              <div className="avatar">
+                                <div className="mask mask-squircle h-12 w-12">
+                                  <img
+                                    src="https://img.daisyui.com/tailwind-css-component-profile-2@56w.png"
+                                    alt="Avatar Tailwind CSS Component" />
+                                </div>
+                              </div>
+                              <div>
+                                <div className="font-bold">Hart Hagerty</div>
+                                <div className="text-sm opacity-50">United States</div>
+                              </div>
+                            </div>
+                          </td>
+                          }
+                          else {
+                            return <td key={column.key}>{item[column.dataIndex]}</td>
+                          }
+                      }
+                    
+                    )}
                     <td>
                       <button className='btn btn-ghost btn-xs'>details</button>
                     </td>
@@ -57,5 +80,6 @@ const PTable = ({ data, columns }: any) => {
     </div>
   );
 };
+
 
 export default PTable;
