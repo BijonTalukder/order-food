@@ -1,5 +1,5 @@
-// import Forms from '../Forma/Forms'
-// import FormInput from '../Forma/FormInput'
+import Forms from '../Forma/Forms'
+import FormInput from '../Forma/FormInput'
 const Formtest = () => {
   return (
     <div>

@@ -6,6 +6,7 @@ import DashboardLayout from "../page/DashBoards/Layout/Layout";
 import Profile from "../page/DashBoards/Profile";
 import CreateProductCategory from "../page/DashBoards/Product/CreateProductCategory";
 import ListProductCategory from "../page/DashBoards/Product/ListProductCategory";
+import ViewProductType from "../page/DashBoards/Product/ViewProductType";
 const router = createBrowserRouter([
     {
         path:'/',
@@ -36,7 +37,11 @@ const router = createBrowserRouter([
         {
             path:"list-category",
             element:<ListProductCategory/>
-        }   
+        }  ,
+        {
+            path:"view-category/:id",
+            element:<ViewProductType/>
+        } 
     ]
    }
     

@@ -41,7 +41,7 @@ const PTable = ({ data, columns }: any) => {
                               <div className="avatar">
                                 <div className="mask mask-squircle h-12 w-12">
                                   <img
-                                    src="https://img.daisyui.com/tailwind-css-component-profile-2@56w.png"
+                                    src={item[column.dataIndex]}
                                     alt="Avatar Tailwind CSS Component" />
                                 </div>
                               </div>
@@ -52,15 +52,28 @@ const PTable = ({ data, columns }: any) => {
                             </div>
                           </td>
                           }
+                          else if(column.title=="action"){
+                            return <td key={column.key}>
+                              {column.render(item)}
+                            
+                            </td>
+                          //    <td key={column.key}>
+                          //   <button
+                          //     style={{ margin: "0px 5px" }}
+                          //     onClick={() => console.log(item)}
+                          //   >
+                          //     {column.render ? column.render(item) : "Action"}
+                          //   </button>
+                          // </td>
+
+                          }
                           else {
-                            return <td key={column.key}>{item[column.dataIndex]}</td>
+                            return <td key={column.key}>{item[column.dataIndex]?item[column.dataIndex]:"---"}</td>
                           }
                       }
                     
                     )}
-                    <td>
-                      <button className='btn btn-ghost btn-xs'>details</button>
-                    </td>
+                  
                   </tr>
                 ))}
               </tbody>
