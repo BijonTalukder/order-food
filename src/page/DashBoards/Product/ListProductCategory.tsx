@@ -4,12 +4,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useGetProductTypeQuery } from "../../../redux/API/baseApi";
 import { Link } from "react-router-dom";
-import { FaEye } from "react-icons/fa";
+import { FaEdit, FaEye } from "react-icons/fa";
 
 const ListProductCategory = () => {
   // const [data, setData] = useState("");
-  const {data,isLoading} = useGetProductTypeQuery(undefined)
-  console.log(data,"data from reduxx")
+  const { data, isLoading } = useGetProductTypeQuery(undefined);
+  console.log(data, "data from reduxx");
   // const getData = async () => {
   //   try {
   //     const response = await axios.get(
@@ -35,7 +35,7 @@ const ListProductCategory = () => {
   // useEffect(() => {
   //   getData();
   // }, []);
-  const dataSource = data?.data
+  const dataSource = data?.data;
   // const dataSource = [
   //   {
   //     key:"0",
@@ -58,9 +58,9 @@ const ListProductCategory = () => {
   // ];
   const columns = [
     {
-      ImgUrl:"",
-      dataIndex:"ImgUrl",
-      key:"image"
+      ImgUrl: "",
+      dataIndex: "ImgUrl",
+      key: "image",
     },
     {
       title: "Name",
@@ -73,24 +73,36 @@ const ListProductCategory = () => {
       key: "date",
     },
     {
-      title:"action",
-      render: function(data:any){
-        return <>
-          <Link
-           to={`/dashboard/view-category/${data._id}`}>
+      title: "action",
+      render: function (data: any) {
+        return (
+          <>
+            <Link to={`/dashboard/view-category/${data._id}`}>
               <button
-              className="btn btn-primary"
+                className='btn btn-primary'
                 style={{
                   margin: "0px 5px",
                 }}
                 onClick={() => console.log(data)}
-              
               >
-<FaEye/>              </button>
+                <FaEye />{" "}
+              </button>
             </Link>
-        </>
-      }
-    }
+            <Link to={`/dashboard/edit-category-type/${data._id}`}>
+              <button
+                className='btn btn-primary'
+                style={{
+                  margin: "0px 5px",
+                }}
+                onClick={() => console.log(data)}
+              >
+                <FaEdit />{" "}
+              </button>
+            </Link>
+          </>
+        );
+      },
+    },
   ];
   return (
     <div className='shadow-sm m-3'>

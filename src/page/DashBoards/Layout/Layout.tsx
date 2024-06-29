@@ -61,6 +61,14 @@ const DashboardLayout = () => {
                   <li className='hover:bg-gray-700 focus:bg-green-300'>
                     <Link to='/dashboard/list-category'>List Product</Link>
                   </li>
+                  {/* <li className='hover:bg-gray-700 focus:bg-green-300'>
+                    <Link to='/dashboard/list-category'>List edit </Link>
+                  </li>
+                  edit-category-type/:id */}
+                  {/* <li className='hover:bg-gray-700 focus:bg-green-300'>
+                    <Link to='/dashboard/list-category'>List edit </Link>
+                  </li>
+                  edit-category-type/:id */}
                 </ul>
               </li>
             </ul>
