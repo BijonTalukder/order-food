@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import FileUpload from "../../../component/Forma/FileUpload/FileUpload";
 import FormInput from "../../../component/Forma/FormInput";
 import Forms from "../../../component/Forma/Forms";
@@ -6,6 +7,8 @@ import { useCreateStoreMutation } from "../../../redux/API/stores/storeApi";
 import BradCumbs from "../../../share/BradCumbs/BradCumbs";
 
 const CreateStores = () => {
+  const [coordinates, setCoordinates] = useState<{ latitude: number; longitude: number } | null>(null);
+
   const [setStore] = useCreateStoreMutation()
   const BreadCumbsItems: BreadcrumbItem[] = [
     {
@@ -19,8 +22,17 @@ const CreateStores = () => {
       iconType: "file",
     },
   ];
-
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      setCoordinates({ latitude, longitude });
+    });
+  }, []);
   const handleStore = async(values:any) => {
+    if (!coordinates) {
+      console.error("Location not available");
+      return;
+    }
     const formData = new FormData();
     const {storeAddress,...data}= values
     const file = data["imgUrl"];
@@ -29,20 +41,20 @@ const CreateStores = () => {
     
     delete data["imgUrl"];
    const bodyData ={
-    data,
+    ...data,
     pointLocation:{
-      storeAddress:storeAddress
-      // coordinates:{
-      //     type:[
-      //         Number
-      //     ]
-      // }
+      storeAddress:storeAddress,
+      coordinates:[coordinates.longitude, coordinates.latitude]
   },
    }
    const strData = JSON.stringify(bodyData);
       formData.append("data", strData);
-    await setStore(strData)
-   console.log(values)
+    await setStore(formData)
+   console.log(bodyData)
+   console.log(strData)
+   console.log(formData)
+
+
   };
 
   return (

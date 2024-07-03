@@ -6,7 +6,7 @@ export const storeApi = baseApi.injectEndpoints({
             query:(data)=>({
              url:"/stores/create",
              method:"POST",
-             data   
+             body: data   
             })
         })
     })
