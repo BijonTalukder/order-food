@@ -16,7 +16,7 @@ const FormInput = ({name,type,value,placeholder,label}:IInput) => {
         control={control}
         name={name}
         render={({ field}) => 
-            <label className="form-control w-full max-w-xs">
+            <label className="form-control w-full">
             <div className="label">
               <span className="label-text">{label?label:""}</span>
            
@@ -27,7 +27,7 @@ const FormInput = ({name,type,value,placeholder,label}:IInput) => {
                 ...field
             }
             value={value?value:field.value}
-            className="input input-bordered w-full max-w-xs" />
+            className="input input-bordered w-full" />
          
           </label>
         }

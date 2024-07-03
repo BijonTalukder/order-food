@@ -58,6 +58,9 @@ const FileUpload: React.FC<FileUploadProps> = ({
       control={control}
       render={({ field }) => (
         <div>
+          {
+            label?label:""
+          }
           <label
             htmlFor={id || name}
             className="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-52 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]"
