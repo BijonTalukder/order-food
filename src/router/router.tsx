@@ -7,7 +7,7 @@ import Profile from "../page/DashBoards/Profile";
 import CreateProductCategory from "../page/DashBoards/Product/CreateProductCategory";
 import ListProductCategory from "../page/DashBoards/Product/ListProductCategory";
 import ViewProductType from "../page/DashBoards/Product/ViewProductType";
-import CreateStores from "../page/DashBoards/stores/createStores";
+import CreateStores from "../page/DashBoards/stores/CreateStores";
 const router = createBrowserRouter([
     {
         path:'/',
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         element:<Registration/>
     },
    {
-    
+
     path:'/dashboard',
     element:<DashboardLayout/>,
     children:[
@@ -49,12 +49,12 @@ const router = createBrowserRouter([
         }
     ]
    }
-    
-  
+
+
     // {
     //     path:'/All-Books',
     //     element:<BookC
     // }
 
 ])
-export default router 
+export default router

@@ -10,7 +10,19 @@ export const baseApi = createApi({
       getSingleProdutType:builder.query({
         query:(id)=>`/productType/${id}`
 
-      })
+      }),
+
+    updateProductType: builder.mutation({
+      query: ({ id, ...data }) => ({
+        url: `/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
     }),
-  }) 
-  export const {useGetProductTypeQuery,useGetSingleProdutTypeQuery} = baseApi
+  }),
+});
+export const {
+  useGetProductTypeQuery,
+  useGetSingleProdutTypeQuery,
+  useUpdateProductTypeMutation,
+} = baseApi;
