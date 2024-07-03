@@ -1,26 +1,32 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { axiosBaseQuery } from '../../helpers/axios/axiosBaseQuery';
 
 export const baseApi = createApi({
-    reducerPath: 'api',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api/v1/' }),
-    endpoints: (builder) => ({
-      getProductType: builder.query({
-        query: () => `/productType/`,
+  reducerPath: 'api',
+  baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:5000/api/v1/' }),
+  endpoints: (builder) => ({
+    getProductType: builder.query({
+      query: () => ({
+        url: `/productType/`,
+        method: 'GET',
       }),
-      getSingleProdutType:builder.query({
-        query:(id)=>`/productType/${id}`
-
+    }),
+    getSingleProdutType: builder.query({
+      query: (id) => ({
+        url: `/productType/${id}`,
+        method: 'GET',
       }),
-
+    }),
     updateProductType: builder.mutation({
       query: ({ id, ...data }) => ({
         url: `/${id}`,
-        method: "PATCH",
-        body: data,
+        method: 'PATCH',
+        data,
       }),
     }),
   }),
 });
+
 export const {
   useGetProductTypeQuery,
   useGetSingleProdutTypeQuery,
