@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Banner from '../share/Banner/Banner';
 import BookCart from '../share/BookCart/BookCart';
 import FormTest from '../component/FormTest/Formtest'
+import Stores from '../page/Stores/Stores';
 const Main = () => {
     return (
         <div>
@@ -11,6 +12,7 @@ const Main = () => {
             <BookCart/>
             <Outlet/>
             <FormTest/>
+            <Stores/>
             
         </div>
     );

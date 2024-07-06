@@ -19,6 +19,8 @@ export const axiosBaseQuery =
   > =>
   async ({ url, method, data, params, contentType }) => {
     try {
+      console.log(data,"axios");
+      
       const result = await axiosInstance({
         url: baseUrl + url,
         method,

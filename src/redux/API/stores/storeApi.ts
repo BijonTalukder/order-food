@@ -6,9 +6,20 @@ export const storeApi = baseApi.injectEndpoints({
             query:(data)=>({
              url:"/stores/create",
              method:"POST",
-             body: data   
+             data  ,
+             contentType:"multipart/form-data"
+           
             })
+        }),
+       
+        getStore:build.query({
+            query: ()=>({
+                url:"/stores/",
+                method:"GET"
+
+            })
+
         })
     })
 })
-export const {useCreateStoreMutation} = storeApi
+export const {useCreateStoreMutation,useGetStoreQuery} = storeApi

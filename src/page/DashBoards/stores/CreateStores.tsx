@@ -49,7 +49,7 @@ const CreateStores = () => {
    }
    const strData = JSON.stringify(bodyData);
       formData.append("data", strData);
-    await setStore(formData)
+    await setStore(formData).unwrap()
    console.log(bodyData)
    console.log(strData)
    console.log(formData)
