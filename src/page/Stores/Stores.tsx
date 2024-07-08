@@ -1,5 +1,6 @@
 // import { StoreCart } from "../../component/Cart/StoreCart"
 import StoreCart from "../../component/Cart/StoreCart"
+import { IStores } from "../../constant"
 import { useGetStoreQuery } from "../../redux/API/stores/storeApi"
 
 const Stores = () => {
@@ -8,7 +9,7 @@ const Stores = () => {
     <div className="grid grid-cols-4 gap-2">
 
         {
-            data?.data?.map((item:any,index:number)=><StoreCart key={index}/>)
+            data?.data?.map((item:IStores,index:number)=><StoreCart key={index} data={item}/>)
         }
     </div>
   )

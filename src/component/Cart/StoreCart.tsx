@@ -1,11 +1,17 @@
+import { Link } from 'react-router-dom';
+import { IStores } from '../../constant'
 import './StoreCart.css'
-const StoreCart = () => {
+interface StoreCartProps {
+  data: IStores;
+}
+const StoreCart:React.FC<StoreCartProps> = ({data}) => {
   return (
-    <div className=" StoreCart">
+    <Link to={`store/${data._id}`}>
+      <div className=" StoreCart">
         <div className='shadow-lg rounded-md'>
             <div className="image">
             <div className="kitchenImage rounded-md">
-                <img  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="" />
+                <img  src={data.imgUrl} alt="" />
                 <div className='bottom-wave'>
 
                 <svg className="sc-cAmlYy jJRrEL" height="6" width="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
@@ -56,6 +62,8 @@ const StoreCart = () => {
   </div>
 </div> */}
     </div>
+    </Link>
+    
   )
 }
 

@@ -8,6 +8,7 @@ import CreateProductCategory from "../page/DashBoards/Product/CreateProductCateg
 import ListProductCategory from "../page/DashBoards/Product/ListProductCategory";
 import ViewProductType from "../page/DashBoards/Product/ViewProductType";
 import CreateStores from "../page/DashBoards/stores/CreateStores";
+import StoresProfile from "../page/Stores/StoresProfile/StoresProfile";
 const router = createBrowserRouter([
     {
         path:'/',
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
     {
         path:'/Sign-up',
         element:<Registration/>
+    },
+    {
+        path:"store/:id",
+        element:<StoresProfile/>
     },
    {
 
