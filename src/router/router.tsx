@@ -4,11 +4,12 @@ import Login from "../page/Authentication/Login";
 import Registration from "../page/Authentication/Registration";
 import DashboardLayout from "../page/DashBoards/Layout/Layout";
 import Profile from "../page/DashBoards/Profile";
-import CreateProductCategory from "../page/DashBoards/Product/CreateProductCategory";
-import ListProductCategory from "../page/DashBoards/Product/ListProductCategory";
-import ViewProductType from "../page/DashBoards/Product/ViewProductType";
+import CreateProductCategory from "../page/DashBoards/ProductType/CreateProductCategory";
+import ListProductCategory from "../page/DashBoards/ProductType/ListProductCategory";
+import ViewProductType from "../page/DashBoards/ProductType/ViewProductType";
 import CreateStores from "../page/DashBoards/stores/CreateStores";
 import StoresProfile from "../page/Stores/StoresProfile/StoresProfile";
+import CreateProduct from "../page/DashBoards/Product/CreateProduct";
 const router = createBrowserRouter([
     {
         path:'/',
@@ -51,6 +52,11 @@ const router = createBrowserRouter([
         {
             path:"create-store",
             element:<CreateStores/>
+        },
+        {
+            path:"create-food",
+            element:<CreateProduct/>
+            
         }
     ]
    }

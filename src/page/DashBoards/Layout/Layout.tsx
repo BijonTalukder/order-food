@@ -22,6 +22,11 @@ const DashboardLayout = () => {
       title:"create store",
       link:"/dashboard/create-store"
 
+    },
+    {
+      icon:<CgProfile />,
+      title:"create food",
+      link:"/dashboard/create-food" 
     }
 
   ]
