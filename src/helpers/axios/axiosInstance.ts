@@ -7,6 +7,8 @@ instance.defaults.timeout=6000
 instance.interceptors.request.use(function (config) {
     // Do something before request is sent
     const accessToken = localStorage.getItem("token")
+    console.log(accessToken);
+    
    if(accessToken){
     config.headers.Authorization = accessToken
    }

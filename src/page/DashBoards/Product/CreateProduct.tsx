@@ -1,11 +1,18 @@
 import FileUpload from "../../../component/Forma/FileUpload/FileUpload"
 import FormInput from "../../../component/Forma/FormInput"
 import Forms from "../../../component/Forma/Forms"
+import FormSearchableSelect from "../../../component/Forma/FormSearchableSelect"
 import FormSelect from "../../../component/Forma/FormSelect"
+// import FormSelect from "../../../component/Forma/FormSearchableSelect"
 import { BreadcrumbItem } from "../../../constant"
+import { useGetStoreProductTypeQuery } from "../../../redux/API/baseApi"
 import BradCumbs from "../../../share/BradCumbs/BradCumbs"
 
 const CreateProduct = () => {
+  const {data:productType,isSuccess} = useGetStoreProductTypeQuery(undefined);
+  
+  console.log(productType);
+  
   // productName:{type:String,required:true},
   // price:{type:Number,required:true},
   // description:{type:String},
@@ -28,9 +35,24 @@ const CreateProduct = () => {
     }
     ]
     const handleProduct=(value:any)=>{
+console.log(value);
 
     }
-    
+    const selectOption=[
+      {
+        label:"data one",
+        value:"data"
+      },
+      {
+        label:"bata one",
+        value:"bata"
+      },
+
+    ]
+    const select=(value:any)=>{
+      console.log(value)
+
+    }
   return (
     <div className="shadow-sm m-3">
     <div>
@@ -67,14 +89,22 @@ const CreateProduct = () => {
                 />
               </div>
               <div>
-<FormSelect>
-  <option>
-    yes
-  </option>
-  <option>
-    no
-  </option>
-</FormSelect>
+<FormSearchableSelect onSelect={select} dataKey="label" options={selectOption}>
+  
+</FormSearchableSelect>
+              </div>
+              <div>
+              <FormSelect
+          name="status"
+          label="Choose an option"
+          options={[
+            { value: 'true', label: 'True' },
+            { value: 'false', label: 'False' },
+        
+          ]}
+        
+        />
+               
               </div>
               <div>
                 <FileUpload name='ImgUrl' label='Upload File' />

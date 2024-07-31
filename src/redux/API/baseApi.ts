@@ -24,6 +24,12 @@ export const baseApi = createApi({
         data,
       }),
     }),
+    getStoreProductType:builder.query({
+      query:()=>({
+        url:"/productType/get-productType-store",
+        method:'GET'
+      })
+    })
   }),
 });
 
@@ -31,4 +37,5 @@ export const {
   useGetProductTypeQuery,
   useGetSingleProdutTypeQuery,
   useUpdateProductTypeMutation,
+  useGetStoreProductTypeQuery
 } = baseApi;
