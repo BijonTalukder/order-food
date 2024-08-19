@@ -26,7 +26,7 @@ export const baseApi = createApi({
     }),
     getStoreProductType:builder.query({
       query:()=>({
-        url:"/productType/get-productType-store",
+        url:'/productType/get-productType-store',
         method:'GET'
       })
     })

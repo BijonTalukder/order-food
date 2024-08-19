@@ -9,9 +9,9 @@ import { useGetStoreProductTypeQuery } from "../../../redux/API/baseApi"
 import BradCumbs from "../../../share/BradCumbs/BradCumbs"
 
 const CreateProduct = () => {
-  const {data:productType,isSuccess} = useGetStoreProductTypeQuery(undefined);
+  const {data:productType,isSuccess,isError} = useGetStoreProductTypeQuery(undefined);
   
-  console.log(productType);
+  console.log(productType,"product",isError);
   
   // productName:{type:String,required:true},
   // price:{type:Number,required:true},
@@ -38,17 +38,15 @@ const CreateProduct = () => {
 console.log(value);
 
     }
-    const selectOption=[
-      {
-        label:"data one",
-        value:"data"
-      },
-      {
-        label:"bata one",
-        value:"bata"
-      },
-
-    ]
+    const selectOptions =
+    isSuccess && productType
+      ? productType.map((i: any) => ({
+          label: i.productTypeName,
+          value: i._id,
+        }))
+      : [];  
+    
+   
     const select=(value:any)=>{
       console.log(value)
 
@@ -89,7 +87,7 @@ console.log(value);
                 />
               </div>
               <div>
-<FormSearchableSelect onSelect={select} dataKey="label" options={selectOption}>
+<FormSearchableSelect onSelect={select} dataKey="label" options={selectOptions}>
   
 </FormSearchableSelect>
               </div>

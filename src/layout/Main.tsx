@@ -4,10 +4,12 @@ import Banner from '../share/Banner/Banner';
 import BookCart from '../share/BookCart/BookCart';
 import FormTest from '../component/FormTest/Formtest'
 import Stores from '../page/Stores/Stores';
+import Hero from '../page/Hero/Hero';
 const Main = () => {
     return (
         <div>
             <NavBar/>
+            <Hero/>
             <Banner/>
             <BookCart/>
             <Outlet/>
