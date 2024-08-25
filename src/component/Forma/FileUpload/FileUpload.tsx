@@ -8,6 +8,7 @@ interface FileUploadProps {
   onFileSelect?: (file: File) => void;
   label?: string;
   id?: string;
+  className?:string;
 }
 
 const FileUpload: React.FC<FileUploadProps> = ({
@@ -16,6 +17,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   onFileSelect,
   label = 'Upload file',
   id,
+  className
 }) => {
   const { control } = useFormContext();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
