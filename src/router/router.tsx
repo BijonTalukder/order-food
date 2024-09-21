@@ -10,6 +10,10 @@ import ViewProductType from "../page/DashBoards/ProductType/ViewProductType";
 import CreateStores from "../page/DashBoards/stores/CreateStores";
 import StoresProfile from "../page/Stores/StoresProfile/StoresProfile";
 import CreateProduct from "../page/DashBoards/Product/CreateProduct";
+import StoreLayoutComponent from "../component/StoreLayoutComponent/StoreLayoutComponent";
+// import StoreCart from "../component/StoreLayoutComponent/StoreLayoutComponent";
+// import StoreLaout from "../component/StoreLayoutComponent/"
+
 const router = createBrowserRouter([
     {
         path:'/',
@@ -27,6 +31,10 @@ const router = createBrowserRouter([
     {
         path:"store/:id",
         element:<StoresProfile/>
+    },
+    {
+        path:"/store",
+        element:<StoreLayoutComponent/>
     },
    {
 
