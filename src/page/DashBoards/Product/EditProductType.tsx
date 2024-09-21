@@ -8,6 +8,7 @@ import {
 import SkeletonLoader from "../../../component/Table/SkeletonLoader";
 import BradCumbs from "../../../share/BradCumbs/BradCumbs";
 import { BreadcrumbItem } from "../../../constant";
+import Swal from "sweetalert2";
 
 const EditProductType = () => {
   const { id } = useParams();
@@ -39,6 +40,13 @@ const EditProductType = () => {
     };
 
     const res = await updateProductType(postData);
+    if (res) {
+      Swal.fire({
+        icon: "success",
+        timer: 2000,
+        title:' done updated',
+      });
+    }
   };
   const defaultValue = {
     productTypeName: data?.data?.productTypeName || "",
