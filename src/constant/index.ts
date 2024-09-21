@@ -10,3 +10,14 @@ export interface BreadcrumbItem {
 export interface BreadcrumbsProps {
   items: BreadcrumbItem[];
 }
+export type IStores= {
+  _id:string,
+  storeName?: string,
+  imgUrl?: string;
+  status?: string;
+  pointLocation?: {
+      storeAddress: string;
+      type:string;
+      coordinates: number[];     
+  }
+}
