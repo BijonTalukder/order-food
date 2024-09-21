@@ -76,6 +76,11 @@ const StoresProfile = () => {
                 <li className="cursor-pointer hover:bg-gray-200 px-2 py-1 rounded">Dim</li>
               </ul>
             </div>
+
+            {/* stores food section */}
+            <div>
+              asdf
+            </div>
           </div>
         </div>
       </div>

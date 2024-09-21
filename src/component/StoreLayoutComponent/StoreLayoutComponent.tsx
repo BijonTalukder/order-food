@@ -1,7 +1,8 @@
+import Stores from "../../page/Stores/Stores"
 
 const StoreLayoutComponent = () => {
   return (
-    <div>dsfdfd</div>
+   <Stores/>
   )
 }
 
