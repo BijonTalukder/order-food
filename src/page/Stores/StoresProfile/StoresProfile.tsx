@@ -1,4 +1,5 @@
 import Img from '../../../assets/back.jpg';
+import FoodCart from '../../../share/FoodCart/FoodCart';
 import './StoreProfile.css';
 
 const StoresProfile = () => {
@@ -78,11 +79,20 @@ const StoresProfile = () => {
             </div>
 
             {/* stores food section */}
-            <div>
-              asdf
-            </div>
+           
           </div>
         </div>
+      </div>
+
+
+      {/* body section */}
+      <div className='grid grid-cols-4'>
+        <div className='col-span-3'>
+<FoodCart/>
+        </div>
+        <div className='col-span-1'>
+sdfafdsf
+</div>
       </div>
     </div>
   );
