@@ -1,10 +1,11 @@
 import Img from '../../../assets/back.jpg';
 import FoodCart from '../../../share/FoodCart/FoodCart';
+import Cart from '../Cart/Cart';
 import './StoreProfile.css';
 
 const StoresProfile = () => {
   return (
-    <div className="storeProfile shadow-sm m-3 p-4 bg-white rounded-lg">
+    <div className="relative storeProfile shadow-sm m-3 p-4 bg-white rounded-lg">
       {/* Full-width Image */}
       <div className="storeImage relative h-60 rounded-lg overflow-hidden mb-4">
         <img className="object-cover w-full h-full" src={Img} alt="Store Background" />
@@ -51,7 +52,7 @@ const StoresProfile = () => {
       </div>
 
       {/* Menu Nav */}
-      <div className="navBar mt-4">
+      <div className="navBar mt-4 sticky top-0 z-10">
         <div className="sticky top-0 z-10 bg-white shadow-md py-2">
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-2">
@@ -86,12 +87,12 @@ const StoresProfile = () => {
 
 
       {/* body section */}
-      <div className='grid grid-cols-4'>
+      <div className='grid grid-cols-4 mt-3'>
         <div className='col-span-3'>
 <FoodCart/>
         </div>
-        <div className='col-span-1'>
-sdfafdsf
+        <div className='col-span-1 sticky'>
+<Cart/>
 </div>
       </div>
     </div>
