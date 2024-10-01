@@ -1,13 +1,22 @@
+import { useParams } from 'react-router-dom';
 import Img from '../../../assets/back.jpg';
+import { useGetSingleProdutTypeQuery } from '../../../redux/API/baseApi';
 import FoodCart from '../../../share/FoodCart/FoodCart';
 import './StoreProfile.css';
+import { store } from '../../../redux/store';
+import { useGetSingleStoreQuery } from '../../../redux/API/stores/storeApi';
 
 const StoresProfile = () => {
+  const { id } = useParams();
+
+  const {data:storeData,isSuccess,isLoading} = useGetSingleStoreQuery(id);
+  
+  console.log(storeData)
   return (
     <div className="storeProfile shadow-sm m-3 p-4 bg-white rounded-lg">
       {/* Full-width Image */}
-      <div className="storeImage relative h-60 rounded-lg overflow-hidden mb-4">
-        <img className="object-cover w-full h-full" src={Img} alt="Store Background" />
+      <div className="storeImage relative  max-h-[120px] rounded-lg overflow-hidden mb-4">
+        <img className="object-cover w-full h-full" src={isSuccess && storeData?.data[0]?.imgUrl} alt="Store Background" />
       </div>
 
       {/* Profile and Bio Section */}
@@ -16,14 +25,14 @@ const StoresProfile = () => {
         <div className="profile flex items-center col-span-12 md:col-span-2 space-x-4">
           <div className="avatar shadow-md w-full">
             <div className="w-full rounded">
-              <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="Avatar" />
+              <img src={isSuccess && storeData?.data[0]?.imgUrl} alt="Avatar" />
             </div>
           </div>
         </div>
 
         {/* Store Details Section */}
         <div className="StoreDetails col-span-12 md:col-span-8 p-4">
-          <h1 className="text-xl font-bold">Shef Divya's Menu</h1>
+          <h1 className="text-xl font-bold">{ isSuccess && storeData?.data[0]?.storeName}</h1>
           <p className="text-sm text-gray-600">North Indian · Indian</p>
           <div className="body space-y-4 mt-2">
             <div className="information flex justify-between text-sm text-gray-600">
@@ -91,7 +100,12 @@ const StoresProfile = () => {
 <FoodCart/>
         </div>
         <div className='col-span-1'>
-sdfafdsf
+
+          <div>
+
+            
+          </div>
+
 </div>
       </div>
     </div>

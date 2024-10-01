@@ -1,114 +1,76 @@
-import {  FaSearch } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { setUser } from "../../redux/feature/Auth/AuthSlice";
-import { RootState } from "../../redux/store";
-const NavBar = () => {
-  const userData = useSelector((state:RootState) => state.user.userData);
-  const dispatch = useDispatch();
-  console.log(userData, "nav");
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    dispatch(setUser(null));
-  };
-  return (
-    <div className="NavBar">
-      <div className="navbar bg-base-100">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
-            </ul>
-          </div>
-          <div className="btn btn-ghost normal-case text-xl">
-            <img src="/Assets/Img/logo_bn.png" className="nav-logo" />
-          </div>
-        </div>
-        <div className="navbar-center search-bar hidden lg:flex">
-          <div className="grid grid-cols-6 items-center w-full">
-            <div className="col-span-5 border border-black">
-              <input placeholder="Search By Book" />
-            </div>
-            <div className="searchIcon flex justify-center items-center">
-              <FaSearch color="white" />
-            </div>
-          </div>
+// Navbar.js
 
-          {/* <ul className="menu menu-horizontal px-1">
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li tabIndex={0}>
-              <details>
-                <summary>Parent</summary>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
-          </ul> */}
-        </div>
-        <div className="navbar-end">
-          <div className="flex items-center justify-between">
-            {userData ? (
-              <>
-                <button onClick={handleLogout}>LogOut</button>{" "}
-              </>
-            ) : (
-              <>
-                <Link to={"/Login"}>Sign IN</Link>
-                <Link to={"/Sign-up"}>Sign up</Link>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+import React, { useState } from 'react';
+
+const Navbar = () => {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [userLocation, setUserLocation] = useState('Location'); // Default location
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    return (
+        <nav className="bg-white shadow-lg fixed w-full z-10">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between items-center h-16">
+                    {/* Left Side: Cart Icon and Login/Logout */}
+                    <div className="flex items-center space-x-4">
+                        <a href="#" className="text-gray-600 hover:text-green-600 transition duration-200">
+                            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h18M3 9h18M3 15h18M3 21h18" />
+                            </svg>
+                        </a>
+                        <a href="#" className="text-gray-600 hover:text-green-600 transition duration-200">Login</a>
+                        <a href="#" className="text-white bg-green-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-green-500 transition duration-200">Logout</a>
+                    </div>
+
+                    {/* Center: User Location */}
+                    <div className="flex-grow text-center">
+                        <span className="text-gray-600 font-medium">{userLocation}</span>
+                    </div>
+
+                    {/* Mobile Menu Button */}
+                    <div className="-mr-2 flex md:hidden">
+                        <button
+                            onClick={toggleMobileMenu}
+                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                            aria-controls="mobile-menu"
+                            aria-expanded={isMobileMenuOpen}
+                        >
+                            <span className="sr-only">Open main menu</span>
+                            {isMobileMenuOpen ? (
+                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            ) : (
+                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+                                </svg>
+                            )}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Mobile Menu */}
+            <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu">
+                <div className="flex flex-col px-4 pt-4 pb-2 space-y-2 bg-white border-b border-gray-200 shadow-lg">
+                    <div className="flex items-center w-full">
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            className="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-green-500"
+                        />
+                    </div>
+                    <a href="#" className="text-gray-600 hover:text-green-600 transition duration-200">Add to Cart</a>
+                    <span className="block text-gray-600">{userLocation}</span>
+                    <a href="#" className="text-gray-600 hover:text-green-600 transition duration-200">Login</a>
+                    <a href="#" className="text-white bg-green-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-green-500 transition duration-200">Logout</a>
+                </div>
+            </div>
+        </nav>
+    );
 };
 
-export default NavBar;
+export default Navbar;
