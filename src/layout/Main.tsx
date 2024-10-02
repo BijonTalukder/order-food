@@ -10,11 +10,11 @@ const Main = () => {
         <div>
             <NavBar/>
             <Hero/>
-            <Banner/>
+            {/* <Banner/>
             <BookCart/>
             <Outlet/>
             <FormTest/>
-            <Stores/>
+            <Stores/> */}
             
         </div>
     );

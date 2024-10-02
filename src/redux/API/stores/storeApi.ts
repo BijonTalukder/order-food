@@ -19,7 +19,15 @@ export const storeApi = baseApi.injectEndpoints({
 
             })
 
+        }),
+        getSingleStore:build.query({
+            query:(id)=>({
+                url:`/stores/${id}`,
+                method:"GET"
+
+            })
+
         })
     })
 })
-export const {useCreateStoreMutation,useGetStoreQuery} = storeApi
+export const {useCreateStoreMutation,useGetStoreQuery,useGetSingleStoreQuery} = storeApi
