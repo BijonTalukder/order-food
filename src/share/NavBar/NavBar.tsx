@@ -1,76 +1,128 @@
-// Navbar.js
+// import React, { useState } from 'react';
 
-import React, { useState } from 'react';
+// const Sidebar = () => {
+//   // State to manage dropdown visibility
+//   const [isBrowseOpen, setIsBrowseOpen] = useState(false);
 
+//   const toggleBrowseMenu = () => {
+//     setIsBrowseOpen(!isBrowseOpen);
+//   };
+
+//   return (
+//     <div className="h-screen w-64 bg-gray-800 text-white flex flex-col p-6">
+//       {/* Company Name */}
+//       <div className="text-2xl font-bold mb-10 text-center">
+//         Company Name
+//       </div>
+      
+//       {/* Navigation Links */}
+//       <ul className="space-y-6">
+//         <li>
+//           <a href="#home" className="block py-2 px-4 rounded hover:bg-gray-700">
+//             Home
+//           </a>
+//         </li>
+
+//         {/* Browse with Dropdown */}
+//         <li>
+//           <button
+//             onClick={toggleBrowseMenu}
+//             className="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 focus:outline-none"
+//           >
+//             Browse
+//           </button>
+
+//           {/* Sub-menu for Browse */}
+//           {isBrowseOpen && (
+//             <ul className="ml-4 space-y-4">
+//               <li>
+//                 <a href="#browse-1" className="block py-2 px-4 rounded hover:bg-gray-700">
+//                   Browse Sub-item 1
+//                 </a>
+//               </li>
+//               <li>
+//                 <a href="#browse-2" className="block py-2 px-4 rounded hover:bg-gray-700">
+//                   Browse Sub-item 2
+//                 </a>
+//               </li>
+//             </ul>
+//           )}
+//         </li>
+
+//         <li>
+//           <a href="#menu" className="block py-2 px-4 rounded hover:bg-gray-700">
+//             Menu
+//           </a>
+//         </li>
+//         <li>
+//           <a href="#restaurant" className="block py-2 px-4 rounded hover:bg-gray-700">
+//             Restaurant
+//           </a>
+//         </li>
+//       </ul>
+//     </div>
+//   );
+// };
+
+// export default Sidebar;
+import React from 'react';
+import CartDropdown from './CartDropDown';
+import Avatar from './Avatar';
+import { useDispatch, useSelector } from "react-redux";
+
+import { setUser } from "../../redux/feature/Auth/AuthSlice";
+import { RootState } from "../../redux/store";
+import { FaUserPlus } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 const Navbar = () => {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [userLocation, setUserLocation] = useState('Location'); // Default location
+    
+    const userData = useSelector((state:RootState) => state.user.userData);
+    const dispatch = useDispatch();
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        dispatch(setUser(null));
+      };
+      console.log(userData)
+  return (
+    <nav className="navbar bg-base-100">
+      <div className="flex-1">
+        <a href="/" className="btn btn-ghost normal-case text-xl">
+          MyApp
+        </a>
+      </div>
+      <div className="flex-none">
+        <CartDropdown />
 
-    const toggleMobileMenu = () => {
-        setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
 
-    return (
-        <nav className="bg-white shadow-lg fixed w-full z-10">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-16">
-                    {/* Left Side: Cart Icon and Login/Logout */}
-                    <div className="flex items-center space-x-4">
-                        <a href="#" className="text-gray-600 hover:text-green-600 transition duration-200">
-                            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h18M3 9h18M3 15h18M3 21h18" />
-                            </svg>
-                        </a>
-                        <a href="#" className="text-gray-600 hover:text-green-600 transition duration-200">Login</a>
-                        <a href="#" className="text-white bg-green-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-green-500 transition duration-200">Logout</a>
-                    </div>
+        {
+            !!userData.email? <Avatar handleLogout={handleLogout}/>:
+            
+            <div className="bg-[#03081F] text-white  rounded-3xl p-2 shadow-lg transition-transform transform hover:scale-105">
+      <div className="grid grid-cols-3 items-center w-full px-2 sm:px-1">
+     
+        <div className="hidden col-span-1 md:flex lg:flex justify-center">
+          <div className="rounded-full h-8 w-8 p-2 bg-orange-400 flex items-center justify-center shadow-md transition-transform transform hover:scale-110">
+            <FaUserPlus size={16} />
+          </div>
+        </div>
 
-                    {/* Center: User Location */}
-                    <div className="flex-grow text-center">
-                        <span className="text-gray-600 font-medium">{userLocation}</span>
-                    </div>
-
-                    {/* Mobile Menu Button */}
-                    <div className="-mr-2 flex md:hidden">
-                        <button
-                            onClick={toggleMobileMenu}
-                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                            aria-controls="mobile-menu"
-                            aria-expanded={isMobileMenuOpen}
-                        >
-                            <span className="sr-only">Open main menu</span>
-                            {isMobileMenuOpen ? (
-                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            ) : (
-                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
-                                </svg>
-                            )}
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            {/* Mobile Menu */}
-            <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu">
-                <div className="flex flex-col px-4 pt-4 pb-2 space-y-2 bg-white border-b border-gray-200 shadow-lg">
-                    <div className="flex items-center w-full">
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            className="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-green-500"
-                        />
-                    </div>
-                    <a href="#" className="text-gray-600 hover:text-green-600 transition duration-200">Add to Cart</a>
-                    <span className="block text-gray-600">{userLocation}</span>
-                    <a href="#" className="text-gray-600 hover:text-green-600 transition duration-200">Login</a>
-                    <a href="#" className="text-white bg-green-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-green-500 transition duration-200">Logout</a>
-                </div>
-            </div>
-        </nav>
-    );
+   
+        <div className="md:col-span-2 lg:md:col-span-2 col-span-3">
+          <div className="flex justify-between items-center">
+            <h4 className="font-semibold hover:text-orange-300 cursor-pointer"><Link to={'/Login'}>Login</Link></h4>
+            <span className="text-gray-400">/</span>
+            <h4 className="font-semibold  hover:text-orange-300 cursor-pointer"><Link to={'/Sign-up'}>Sign Up</Link></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+            
+        }
+       
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;
