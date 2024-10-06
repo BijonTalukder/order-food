@@ -10,7 +10,14 @@ export const productsApi= baseApi.injectEndpoints({
                 contentType:"multipart/form-data"
               
                })
+        }),
+        getProductByStore:build.query({
+            query:(id)=>({
+                url:`/get-product-by-store/${id}`,
+                method:"GET"
+            })
+
         })
     })
 })
-export const {useCreateProductMutation} = productsApi;
+export const {useCreateProductMutation,useGetProductByStoreQuery} = productsApi;
