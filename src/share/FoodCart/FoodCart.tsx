@@ -1,6 +1,26 @@
 
 import { IoAddCircleSharp } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { addItemToCart } from "../../redux/feature/Cart/CartSlice";
 const FoodCart = ({data}) => {
+  const dispatch = useDispatch();
+  const handleClick=(data)=>{
+    console.log(data
+    );
+    
+    dispatch(addItemToCart({
+     item: { 
+        id: data._id, 
+        productName: data.productName, 
+        price: data.price, 
+        quantity: 1,
+        ImgUrl:data.ImgUrl
+      },
+      storeId:data.storeId
+    }))
+  }
+  const cartData = useSelector(state=>state.cart.items);
+  console.log(cartData)
   return (
     <div className="max-h-[245px] max-w-[496px] rounded-[12px] shadow-lg p-[10px]">
       <div className="grid grid-cols-3 gap-1">
@@ -32,7 +52,7 @@ const FoodCart = ({data}) => {
               alt="Food Cart"
             />
 
-            <div className="hover:shadow-[0px_4px_4px_0px_#00000040] rounded-tl-[30px] rounded-br-[12px] absolute right-0 bottom-0 w-[68px] h-[61px] bg-white opacity-85 flex justify-center items-center">
+            <div onClick={()=>{handleClick(data)}} className="hover:shadow-[0px_4px_4px_0px_#00000040] rounded-tl-[30px] rounded-br-[12px] absolute right-0 bottom-0 w-[68px] h-[61px] bg-white opacity-85 flex justify-center items-center">
               
               
               < IoAddCircleSharp className="focus:shadow-[0px_4px_4px_0px_#00000040]" size={38}/>
