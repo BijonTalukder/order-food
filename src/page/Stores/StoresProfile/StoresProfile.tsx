@@ -6,12 +6,13 @@ import Cart from '../Cart/Cart';
 import './StoreProfile.css';
 import { store } from '../../../redux/store';
 import { useGetSingleStoreQuery } from '../../../redux/API/stores/storeApi';
+import { useGetProductByStoreQuery } from '../../../redux/API/products/productsApi';
 
 const StoresProfile = () => {
   const { id } = useParams();
 
   const {data:storeData,isSuccess,isLoading} = useGetSingleStoreQuery(id);
-  
+  const {data:productData,isSuccess:productDataSuccess,isLoading} = useGetProductByStoreQuery(id)
   console.log(storeData)
   return (
     <div className="relative storeProfile shadow-sm m-3 p-4 bg-white rounded-lg">
