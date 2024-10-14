@@ -13,7 +13,7 @@ export const productsApi= baseApi.injectEndpoints({
         }),
         getProductByStore:build.query({
             query:(id)=>({
-                url:`/get-product-by-store/${id}`,
+                url:`/product/get-product-by-store/${id}`,
                 method:"GET"
             })
 
