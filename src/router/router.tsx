@@ -11,6 +11,7 @@ import CreateStores from "../page/DashBoards/stores/CreateStores";
 import StoresProfile from "../page/Stores/StoresProfile/StoresProfile";
 import CreateProduct from "../page/DashBoards/Product/CreateProduct";
 import StoreLayoutComponent from "../component/StoreLayoutComponent/StoreLayoutComponent";
+import CheckoutPage from "../page/Checkout/Checkout";
 // import StoreCart from "../component/StoreLayoutComponent/StoreLayoutComponent";
 // import StoreLaout from "../component/StoreLayoutComponent/"
 
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
     {
         path:"/store",
         element:<StoreLayoutComponent/>
+    },
+    {
+        path:'/checkout',
+        element:<CheckoutPage/>
     },
    {
 
