@@ -16,7 +16,7 @@ export class StorageManagerCustom{
         this.storage.removeItem(key);
       }
     
-      // Public method to clear storage
+      
       public clear(): void {
         this.storage.clear();
       }

@@ -12,8 +12,10 @@ const StoresProfile = () => {
   const { id } = useParams();
 
   const {data:storeData,isSuccess,isLoading} = useGetSingleStoreQuery(id);
-  const {data:productData,isSuccess:productDataSuccess,isLoading} = useGetProductByStoreQuery(id)
-  console.log(storeData)
+
+  const {data:productData,isSuccess:productSuccess,isLoading:productLoading} = useGetProductByStoreQuery(id);
+  
+  console.log(productData)
   return (
     <div className="relative storeProfile shadow-sm m-3 p-4 bg-white rounded-lg">
       {/* Full-width Image */}
@@ -97,9 +99,16 @@ const StoresProfile = () => {
 
 
       {/* body section */}
-      <div className='grid grid-cols-4 mt-3'>
+      <div className='grid grid-cols-4 gap-1 mt-3'>
+     
         <div className='col-span-3'>
-<FoodCart/>
+          <div className='grid grid-cols-2 gap-2'>
+          {
+          productSuccess && productData.data.map((item:any,index:number)=><FoodCart data={item} />)
+        }
+
+          </div>
+       
         </div>
         <div className='col-span-1'>
 

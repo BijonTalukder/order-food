@@ -1,31 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const Cart = () => {
   // Sample cart items with images
-  const cartItems = [
-    {
-      id: 1,
-      name: 'Pizza',
-      price: 12.99,
-      quantity: 1,
-      image: 'https://example.com/pizza.jpg', // Replace with your image URL
-    },
-    {
-      id: 2,
-      name: 'Burger',
-      price: 9.99,
-      quantity: 2,
-      image: 'https://example.com/burger.jpg', // Replace with your image URL
-    },
-    {
-      id: 3,
-      name: 'Pasta',
-      price: 14.99,
-      quantity: 1,
-      image: 'https://example.com/pasta.jpg', // Replace with your image URL
-    },
-  ];
-
+  const cartItems  = useSelector(state=>state.cart.items);
   const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
