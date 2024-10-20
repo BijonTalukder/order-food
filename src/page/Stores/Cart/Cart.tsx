@@ -1,11 +1,74 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useCreateCartMutation } from '../../../redux/API/cart/cartsApi';
+import { useParams } from 'react-router-dom';
+interface ICartItemProps {
+  product: {
+    name: string;
+  };
+  price: number;
+  quantity: number;
+}
+// IProduct interface representing the product (simplified for frontend)
+interface IProduct {
+  _id: string;
+  name: string;
+  price: number;
+  // Add other relevant fields like imageUrl, description, etc.
+}
 
+export interface ICartItem {
+  product: IProduct; // The actual product details
+  quantity: number;  // Quantity of the product in the cart
+  price: number;     // Price per item (could also be product.price)
+  selectedOptions: string[]; // Options selected for the product (e.g., size, color)
+  specialInstructions: string; // Any special instructions for the order
+}
+
+// Type definition for the final cart data
+interface ICartData {
+  storeId: string;
+  userId: string;
+  items: ICartItem[];
+  subTotal: number;
+  total: number;
+  deliveryFee: number;
+}
 const Cart = () => {
-  // Sample cart items with images
+  const { id } = useParams();
   const cartItems  = useSelector(state=>state.cart.items);
   const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const [handleCart] = useCreateCartMutation()
 
+
+  const handleCheckout=async()=>{
+
+    try {
+      const user = JSON.parse(localStorage.getItem('users') || '{}'); // Get user data from localStorage
+
+      if (!user?._id) {
+        throw new Error('User is not logged in.');
+      }
+
+      const finalData: ICartData = {
+        storeId: id as string, 
+        userId: user._id, 
+        items: cartItems, 
+        subTotal: totalAmount, 
+        total: totalAmount + 5, 
+        deliveryFee: 5,
+      };
+
+      // Send the cart data to the API
+      await handleCart(finalData).unwrap();
+
+      alert('Cart successfully submitted!');
+    } catch (error: any) {
+      console.error('Checkout error:', error);
+      alert(`Error: ${error.message}`);
+    }
+
+}
   return (
     <div className="max-w-lg mx-auto h-[450px] overflow-auto border rounded-lg shadow-lg bg-white p-6">
       <h1 className="text-3xl font-semibold text-center mb-6">Your Favourite Food</h1>
@@ -31,7 +94,7 @@ const Cart = () => {
         <span>Total:</span>
         <span>${totalAmount.toFixed(2)}</span>
       </div>
-      <button className="mt-6 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200">
+      <button onClick={handleCheckout} className="mt-6 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200">
         Checkout
       </button>
     </div>
