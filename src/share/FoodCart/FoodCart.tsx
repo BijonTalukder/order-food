@@ -20,7 +20,7 @@ const FoodCart = ({data}) => {
     }))
   }
   const cartData = useSelector(state=>state.cart.items);
-  console.log(cartData)
+  // console.log(cartData)
   return (
     <div className="max-h-[245px] max-w-[496px] rounded-[12px] shadow-lg p-[10px]">
       <div className="grid grid-cols-3 gap-1">
