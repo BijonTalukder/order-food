@@ -44,15 +44,15 @@ const Cart = () => {
   const handleCheckout=async()=>{
 
     try {
-      const user = JSON.parse(localStorage.getItem('users') || '{}'); // Get user data from localStorage
-
-      if (!user?._id) {
+      const user = JSON.parse(localStorage.getItem('user') || '{}'); // Get user data from localStorage
+console.log(user)
+      if (!user?.id) {
         throw new Error('User is not logged in.');
       }
 
       const finalData: ICartData = {
         storeId: id as string, 
-        userId: user._id, 
+        userId: user.id, 
         items: cartItems, 
         subTotal: totalAmount, 
         total: totalAmount + 5, 
