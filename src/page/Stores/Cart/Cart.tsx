@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useCreateCartMutation } from '../../../redux/API/cart/cartsApi';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 interface ICartItemProps {
   product: {
     name: string;
@@ -38,9 +38,9 @@ const Cart = () => {
   const { id } = useParams();
   const cartItems  = useSelector(state=>state.cart.items);
   const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  const [handleCart] = useCreateCartMutation()
+  const [handleCart,{isSuccess}] = useCreateCartMutation()
 
-
+  const navigate = useNavigate();
   const handleCheckout=async()=>{
 
     try {
@@ -60,9 +60,15 @@ console.log(user)
       };
 
       // Send the cart data to the API
-      await handleCart(finalData).unwrap();
+     const res= await handleCart(finalData).unwrap();
 
       alert('Cart successfully submitted!');
+      if(res)
+      {
+        navigate('/checkout')
+      }
+      // navigate('/checkout')
+
     } catch (error: any) {
       console.error('Checkout error:', error);
       alert(`Error: ${error.message}`);
