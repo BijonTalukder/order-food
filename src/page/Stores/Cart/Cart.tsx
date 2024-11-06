@@ -2,14 +2,15 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useCreateCartMutation } from '../../../redux/API/cart/cartsApi';
 import { useNavigate, useParams } from 'react-router-dom';
-interface ICartItemProps {
-  product: {
-    name: string;
-  };
-  price: number;
-  quantity: number;
-}
-// IProduct interface representing the product (simplified for frontend)
+import { RootState } from '../../../redux/store';
+// interface ICartItemProps {
+//   product: {
+//     name: string;
+//   };
+//   price: number;
+//   quantity: number;
+// }
+
 interface IProduct {
   _id: string;
   name: string;
@@ -18,6 +19,10 @@ interface IProduct {
 }
 
 export interface ICartItem {
+  id?: string
+  _id?: string
+  image: string;
+  name: string;
   product: IProduct; // The actual product details
   quantity: number;  // Quantity of the product in the cart
   price: number;     // Price per item (could also be product.price)
@@ -25,7 +30,6 @@ export interface ICartItem {
   specialInstructions: string; // Any special instructions for the order
 }
 
-// Type definition for the final cart data
 interface ICartData {
   storeId: string;
   userId: string;
@@ -36,35 +40,35 @@ interface ICartData {
 }
 const Cart = () => {
   const { id } = useParams();
-  const cartItems  = useSelector(state=>state.cart.items);
-  const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  const [handleCart,{isSuccess}] = useCreateCartMutation()
+  const cartItems = useSelector((state: RootState) => state.cart.items) as ICartItem[];
+  const totalAmount = cartItems.reduce((total: any, item: any) => total + item.price * item.quantity, 0);
+  const [handleCart] = useCreateCartMutation()
+
 
   const navigate = useNavigate();
-  const handleCheckout=async()=>{
+  const handleCheckout = async () => {
 
     try {
       const user = JSON.parse(localStorage.getItem('user') || '{}'); // Get user data from localStorage
-console.log(user)
+      console.log(user)
       if (!user?.id) {
         throw new Error('User is not logged in.');
       }
 
       const finalData: ICartData = {
-        storeId: id as string, 
-        userId: user.id, 
-        items: cartItems, 
-        subTotal: totalAmount, 
-        total: totalAmount + 5, 
+        storeId: id as string,
+        userId: user.id,
+        items: cartItems,
+        subTotal: totalAmount,
+        total: totalAmount + 5,
         deliveryFee: 5,
       };
 
       // Send the cart data to the API
-     const res= await handleCart(finalData).unwrap();
+      const res = await handleCart(finalData).unwrap();
 
       alert('Cart successfully submitted!');
-      if(res)
-      {
+      if (res) {
         navigate('/checkout')
       }
       // navigate('/checkout')
@@ -74,7 +78,7 @@ console.log(user)
       alert(`Error: ${error.message}`);
     }
 
-}
+  }
   return (
     <div className="max-w-lg mx-auto h-[450px] overflow-auto border rounded-lg shadow-lg bg-white p-6">
       <h1 className="text-3xl font-semibold text-center mb-6">Your Favourite Food</h1>
@@ -84,7 +88,7 @@ console.log(user)
         ) : (
           <ul className="space-y-4">
             {cartItems.map(item => (
-              <li key={item.id} className="flex items-center justify-between bg-gray-100 p-4 rounded-md shadow-sm">
+              <li key={item._id} className="flex items-center justify-between bg-gray-100 p-4 rounded-md shadow-sm">
                 <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded-md" />
                 <div className="flex-grow mx-4">
                   <h2 className="text-lg font-medium">{item.name}</h2>

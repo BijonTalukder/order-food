@@ -3,26 +3,31 @@ import { BiChevronDown } from 'react-icons/bi';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 type Option = {
-  [key: string]: string;
+  label: string;
+  value: string;
 };
 
 type FormSelectProps = {
+  id?: string
   options: Option[];
-  dataKey: string;
+  dataKey: keyof Option;  // Use keyof Option here to ensure dataKey is a valid key of Option
   placeholder?: string;
   searchPlaceholder?: string;
+  className?: string
   onSelect?: (value: Option) => void;
 };
 
-const FormSearchableSelect = ({ 
-  options = [], 
-  dataKey = "label", 
-  placeholder = "Select an option", 
-  searchPlaceholder = "Enter name", 
-  onSelect 
+const FormSearchableSelect = ({
+  id,
+  options = [],
+  dataKey = "label",
+  placeholder = "Select an option",
+  searchPlaceholder = "Enter name",
+  className,
+  onSelect
 }: FormSelectProps) => {
   const [inputValue, setInputValue] = useState("");
-  const [selected, setSelected] = useState<Option|null>(null);
+  const [selected, setSelected] = useState<Option | null>(null);
   const [open, setOpen] = useState(false);
 
   const handleSelect = (value: Option) => {
@@ -34,12 +39,12 @@ const FormSearchableSelect = ({
   };
 
   return (
-    <div className="w-72 font-medium h-80">
+    <div className={`w-72 font-medium h-80 ${className}`}>
       <div
         onClick={() => setOpen(!open)}
         className={`bg-gray-300 w-full p-2 flex items-center justify-between rounded ${!selected && "text-gray-700"}`}
       >
-        {selected?selected[dataKey] : placeholder}
+        {selected ? selected[dataKey] : placeholder}
         <BiChevronDown size={20} />
       </div>
       <ul className={`bg-gray-300 mt-2 overflow-y-auto ${open ? "max-h-60" : "max-h-0"}`}>
@@ -59,7 +64,7 @@ const FormSearchableSelect = ({
             .map((item, index) => (
               <li
                 key={index}
-                className={`p-2 text-sm hover:bg-sky-600 hover:text-white ${ selected && item[dataKey]?.toLowerCase() === selected[dataKey]?.toLowerCase() ? "bg-sky-600 text-white" : ""}`}
+                className={`p-2 text-sm hover:bg-sky-600 hover:text-white ${selected && item[dataKey]?.toLowerCase() === selected[dataKey]?.toLowerCase() ? "bg-sky-600 text-white" : ""}`}
                 onClick={() => handleSelect(item)}
               >
                 {item[dataKey]}

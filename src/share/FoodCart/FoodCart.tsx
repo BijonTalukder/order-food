@@ -2,9 +2,11 @@
 import { IoAddCircleSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../redux/feature/Cart/CartSlice";
-const FoodCart = ({data}) => {
+import { RootState } from "../../redux/store";
+// import { RootState } from "@reduxjs/toolkit/query";
+const FoodCart = ({data}:any) => {
   const dispatch = useDispatch();
-  const handleClick=(data)=>{
+  const handleClick=(data:any)=>{
     console.log(data
     );
     
@@ -19,7 +21,7 @@ const FoodCart = ({data}) => {
       storeId:data.storeId
     }))
   }
-  const cartData = useSelector(state=>state.cart.items);
+  const cartData = useSelector((state:RootState)=>state.cart.items);
   // console.log(cartData)
   return (
     <div className="max-h-[245px] max-w-[496px] rounded-[12px] shadow-lg p-[10px]">
