@@ -1,8 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { store } from "../../store";
+import { ICartItem } from "../../../page/Stores/Cart/Cart";
+// interface CartItem {
+//   id: string;         // Assuming item ID is a string
+//   quantity: number;   // The quantity of the item in the cart
+//   name?: string;      // Example of optional property
+//   price?: number;     // Example of optional property
+  
+// }
+interface CartState {
+  items: ICartItem[];
+  storeId: string | null;
+}
 
-
-const initialState={
+const initialState:CartState={
     items:[],
     storeId:null
 
