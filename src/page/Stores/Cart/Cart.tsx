@@ -2,14 +2,15 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useCreateCartMutation } from '../../../redux/API/cart/cartsApi';
 import { useParams } from 'react-router-dom';
-interface ICartItemProps {
-  product: {
-    name: string;
-  };
-  price: number;
-  quantity: number;
-}
-// IProduct interface representing the product (simplified for frontend)
+import { RootState } from '../../../redux/store';
+// interface ICartItemProps {
+//   product: {
+//     name: string;
+//   };
+//   price: number;
+//   quantity: number;
+// }
+
 interface IProduct {
   _id: string;
   name: string;
@@ -18,6 +19,9 @@ interface IProduct {
 }
 
 export interface ICartItem {
+  _id?:string
+  image:string;
+  name:string;
   product: IProduct; // The actual product details
   quantity: number;  // Quantity of the product in the cart
   price: number;     // Price per item (could also be product.price)
@@ -25,7 +29,6 @@ export interface ICartItem {
   specialInstructions: string; // Any special instructions for the order
 }
 
-// Type definition for the final cart data
 interface ICartData {
   storeId: string;
   userId: string;
@@ -36,8 +39,8 @@ interface ICartData {
 }
 const Cart = () => {
   const { id } = useParams();
-  const cartItems  = useSelector(state=>state.cart.items);
-  const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const cartItems  = useSelector((state:RootState)=>state.cart.items) as ICartItem[];
+  const totalAmount = cartItems.reduce((total:any, item:any) => total + item.price * item.quantity, 0);
   const [handleCart] = useCreateCartMutation()
 
 
@@ -78,7 +81,7 @@ console.log(user)
         ) : (
           <ul className="space-y-4">
             {cartItems.map(item => (
-              <li key={item.id} className="flex items-center justify-between bg-gray-100 p-4 rounded-md shadow-sm">
+              <li key={item._id} className="flex items-center justify-between bg-gray-100 p-4 rounded-md shadow-sm">
                 <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded-md" />
                 <div className="flex-grow mx-4">
                   <h2 className="text-lg font-medium">{item.name}</h2>
