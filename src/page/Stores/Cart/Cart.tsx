@@ -19,6 +19,7 @@ interface IProduct {
 }
 
 export interface ICartItem {
+  id?:string
   _id?:string
   image:string;
   name:string;
