@@ -21,9 +21,9 @@ interface IProduct {
 export interface ICartItem {
   id?: string
   _id?: string
-  image: string;
-  name: string;
-  product: IProduct; // The actual product details
+  ImgUrl: string;
+  productName: string;
+  // product: IProduct; // The actual product details
   quantity: number;  // Quantity of the product in the cart
   price: number;     // Price per item (could also be product.price)
   selectedOptions: string[]; // Options selected for the product (e.g., size, color)
@@ -89,9 +89,9 @@ const Cart = () => {
           <ul className="space-y-4">
             {cartItems.map(item => (
               <li key={item._id} className="flex items-center justify-between bg-gray-100 p-4 rounded-md shadow-sm">
-                <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded-md" />
+                <img src={item.ImgUrl} alt={item.productName} className="w-16 h-16 object-cover rounded-md" />
                 <div className="flex-grow mx-4">
-                  <h2 className="text-lg font-medium">{item.name}</h2>
+                  <h2 className="text-lg font-medium">{item.productName}</h2>
                   <p className="text-gray-600">Quantity: {item.quantity}</p>
                 </div>
                 <span className="font-bold text-lg">${(item.price * item.quantity).toFixed(2)}</span>

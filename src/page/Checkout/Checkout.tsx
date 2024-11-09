@@ -3,15 +3,25 @@ import { useGetCartByUserQuery } from '../../redux/API/cart/cartsApi'; // Assumi
 import { useCreateOrderMutation } from '../../redux/API/order/orderApi'; // Assuming you have an order API
 import { StorageManagerCustom } from '../../helpers/SessionHelper';
 import { MapPin, Home, Briefcase, Heart, Plus } from 'lucide-react';
+import { ICartItem } from '../Stores/Cart/Cart';
+import Swal from 'sweetalert2'; // Import SweetAlert2
+import 'sweetalert2/src/sweetalert2.scss'; // Import SweetAlert2 styles
+
 export interface User {
   id?: string;
   name?: string;
   email?: string;
 }
+
 const FoodDeliveryOrder = () => {
   const storageManager = new StorageManagerCustom<User>('local');
   const user = storageManager.getItem('user'); // Assuming you are getting the logged-in user
-  const [orderData, setOrderData] = useState({
+  const [orderData, setOrderData] = useState<{
+    deliveryAddress: string;
+    items: ICartItem[]; // Define items as an array of ICartItem
+    totalAmount: number;
+    paymentMethod: string;
+  }>( {
     deliveryAddress: '',
     items: [],
     totalAmount: 0,
@@ -40,14 +50,43 @@ const FoodDeliveryOrder = () => {
   // Handle order creation
   const handlePlaceOrder = async () => {
     if (!user) {
-      alert('Please log in to place an order');
+      // Show alert if user is not logged in
+      Swal.fire({
+        icon: 'warning',
+        title: 'Login Required',
+        text: 'Please log in to place an order.',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#4CAF50',
+      });
       return;
     }
+
+    // Check if delivery address is provided
+    if (!orderData.deliveryAddress.trim()) {
+      // Show error toast if address is empty
+      Swal.fire({
+        icon: 'error',
+        title: 'Missing Address',
+        text: 'Please enter a valid delivery address.',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#FF4081',
+      });
+      return;
+    }
+
+    const items = orderData.items.map(item => ({
+      productId: item.id, // Use the correct field
+      productName: item.productName,
+      price: item.price,
+      quantity: item.quantity,
+      selectedOptions: item.selectedOptions,
+      specialInstructions: item.specialInstructions,
+    }));
 
     const order = {
       userId: user.id,
       storeId: 'someStoreId', // Replace with the actual store ID
-      items: orderData.items,
+      items: items,
       deliveryAddress: orderData.deliveryAddress,
       totalAmount: orderData.totalAmount,
       paymentMethod: orderData.paymentMethod,
@@ -58,10 +97,22 @@ const FoodDeliveryOrder = () => {
 
     try {
       await createOrder(order).unwrap();
-      alert('Order placed successfully!');
+      Swal.fire({
+        icon: 'success',
+        title: 'Order Placed',
+        text: 'Your order has been placed successfully!',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#4CAF50',
+      });
     } catch (error) {
       console.error('Failed to place order:', error);
-      alert('Failed to place order. Please try again.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Order Failed',
+        text: 'Failed to place the order. Please try again.',
+        confirmButtonText: 'Try Again',
+        confirmButtonColor: '#FF4081',
+      });
     }
   };
 
@@ -88,6 +139,7 @@ const FoodDeliveryOrder = () => {
         <input
           type="text"
           placeholder="Enter your address"
+          required
           className="input input-bordered w-full mb-2"
           value={orderData.deliveryAddress}
           onChange={(e) => setOrderData({ ...orderData, deliveryAddress: e.target.value })}
@@ -112,7 +164,7 @@ const FoodDeliveryOrder = () => {
         {/* Cart Items */}
         {isSuccess && orderData.items.map((item: any, index: number) => (
           <div className="flex justify-between mb-2" key={index}>
-            <span>{item.quantity} x {item.name}</span>
+            <span>{item.quantity} x {item.productName}</span>
             <span>Tk {item.price}</span>
           </div>
         ))}
@@ -167,6 +219,8 @@ const FoodDeliveryOrder = () => {
           Place Order
         </button>
       </div>
+
+      {/* SweetAlert2 will show popups */}
     </div>
   );
 };
