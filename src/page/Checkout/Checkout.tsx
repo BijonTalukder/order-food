@@ -6,6 +6,7 @@ import { MapPin, Home, Briefcase, Heart, Plus } from 'lucide-react';
 import { ICartItem } from '../Stores/Cart/Cart';
 import Swal from 'sweetalert2'; // Import SweetAlert2
 import 'sweetalert2/src/sweetalert2.scss'; // Import SweetAlert2 styles
+import { useNavigate } from 'react-router-dom';
 
 export interface User {
   id?: string;
@@ -14,6 +15,7 @@ export interface User {
 }
 
 const FoodDeliveryOrder = () => {
+  const navigate = useNavigate()
   const storageManager = new StorageManagerCustom<User>('local');
   const user = storageManager.getItem('user'); // Assuming you are getting the logged-in user
   const [orderData, setOrderData] = useState<{
@@ -21,7 +23,7 @@ const FoodDeliveryOrder = () => {
     items: ICartItem[]; // Define items as an array of ICartItem
     totalAmount: number;
     paymentMethod: string;
-  }>( {
+  }>({
     deliveryAddress: '',
     items: [],
     totalAmount: 0,
@@ -96,7 +98,11 @@ const FoodDeliveryOrder = () => {
     };
 
     try {
-      await createOrder(order).unwrap();
+      const res = await createOrder(order).unwrap();
+      window.location.href = res.GatewayPageURL;
+      console.log(res);
+
+
       Swal.fire({
         icon: 'success',
         title: 'Order Placed',
