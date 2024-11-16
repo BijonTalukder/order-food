@@ -12,7 +12,8 @@ import StoresProfile from "../page/Stores/StoresProfile/StoresProfile";
 import CreateProduct from "../page/DashBoards/Product/CreateProduct";
 import StoreLayoutComponent from "../component/StoreLayoutComponent/StoreLayoutComponent";
 import CheckoutPage from "../page/Checkout/Checkout";
-import PrivateRoute from "./PrivateRoute/privateRoute";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
+// import PrivateRoute from "./PrivateRoute/privateRoute";
 // import PrivateRoute from "./PrivateRoute/PrivateRoute";
 // import StoreCart from "../component/StoreLayoutComponent/StoreLayoutComponent";
 // import StoreLaout from "../component/StoreLayoutComponent/"
