@@ -6,8 +6,10 @@ import StoreCart from '../../share/StoreCart/StoreCart';
 
 
 
-const Stores = () => {
-  const {data,isLoading} = useGetStoreQuery(undefined)
+const Stores = ({data}:any) => {
+  console.log(data);
+  
+  // const {data,isLoading} = useGetStoreQuery(undefined)
   return (
     <div className="max-w-5xl mx-auto py-10">
       <h2 className="text-3xl font-bold text-center mb-6">Nearby Kitchens</h2>
