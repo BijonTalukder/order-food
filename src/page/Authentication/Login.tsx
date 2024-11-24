@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import "../../../public/Assets/CSS/ComponentCSS/login.scss";
 import { loginUser } from "../../redux/feature/Auth/AuthSlice";
 // import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { useNavigate } from "react-router-dom";
 
 type ILoginUser = {
   email: string;
@@ -16,16 +17,23 @@ const Login = () => {
     password: "",
   });
   const dispatch:AppDispatch = useDispatch();
-  // const navigate = useNavigate();
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>): void => {
+  const { isLoading, isError, error } = useSelector((state: RootState) => state.user);
+
+  const navigate = useNavigate();
+  const handleLogin = async(e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    dispatch(loginUser(data));
+    const resultAction=await dispatch(loginUser(data));
+    if (loginUser.fulfilled.match(resultAction)) {
+      navigate("/"); // Navigate to root route on success
+    } else {
+      console.error("Login failed", resultAction.error.message);
+    }
   };
-  useEffect(() => {
-    // if (userData) {
-    //   navigate("/");
-    // }
-  }, );
+  // useEffect(() => {
+  //   if (userData) {
+  //     navigate("/");
+  //   }
+  // }, );
   return (
     <div className="login">
       <div className="box">

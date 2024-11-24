@@ -40,6 +40,8 @@ const CreateStores = () => {
     const formData = new FormData();
     const { storeAddress, ...data } = values;
     const file = data["imgUrl"];
+    console.log(file);
+    
 
     formData.append("file", file);
 
@@ -120,6 +122,15 @@ const CreateStores = () => {
                     onChange={handleOperatingHoursChange}
                     required
                   />
+                </div>
+
+                <div>
+                <FormInput
+                name="storeDetails"
+                placeholder="Store details"
+                type="text"
+                label="Enter your store details"
+              />
                 </div>
                 <div className="flex-1">
                   <label className="label">
