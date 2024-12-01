@@ -1,3 +1,5 @@
+import { useGetAllProductTypeQuery } from "../../../redux/API/productType/productTypeApi";
+
 interface FilterSectionProps {
     priceRange: number;
     deliveryTime: number;
@@ -19,6 +21,12 @@ interface FilterSectionProps {
     setCategory,
     setSelectedCuisines,
   }) => {
+
+    const {data,isLoading,isSuccess} = useGetAllProductTypeQuery(undefined)
+    
+    console.log(data);
+    
+    
     const handleCuisineChange = (cuisine: string) => {
       if (selectedCuisines.includes(cuisine)) {
         setSelectedCuisines(selectedCuisines.filter((c) => c !== cuisine));
@@ -35,17 +43,18 @@ interface FilterSectionProps {
         <div className="mb-6">
           <h2 className="text-lg font-medium mb-2">Category</h2>
           <div className="space-y-2">
-            {["Breakfast", "Lunch", "Evening Snacks", "Dinner"].map((item) => (
-              <label key={item} className="flex items-center space-x-2">
+            {isSuccess && data.data.map((item:any) => (
+              <label key={item?._id} className="flex items-center space-x-2">
+               
                 <input
                   type="radio"
                   name="category"
-                  value={item}
-                  checked={category === item}
-                  onChange={() => setCategory(item)}
+                  value={item?._id}
+                  // checked={category === item}
+                  onChange={() => setCategory(item?._id)}
                   className="radio radio-primary"
                 />
-                <span>{item}</span>
+                <span>{item?.productTypeName}</span>
               </label>
             ))}
           </div>
@@ -84,7 +93,7 @@ interface FilterSectionProps {
         </div>
   
         {/* Cuisine Filter */}
-        <div>
+        {/* <div>
           <h2 className="text-lg font-medium mb-2">Cuisines</h2>
           <div className="space-y-2">
             {["Fast Food", "Burger", "Biryani", "Pizza", "Sweets", "Chicken"].map((cuisine) => (
@@ -99,7 +108,7 @@ interface FilterSectionProps {
               </label>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     );
   };
