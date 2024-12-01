@@ -1,23 +1,15 @@
+import StoreCart from "../../share/StoreCart/StoreCart";
 
-import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
-import { useGetStoreQuery } from '../../redux/API/stores/storeApi';
-import { IStores } from '../../constant';
-import StoreCart from '../../share/StoreCart/StoreCart';
-import { useState } from 'react';
-
-
-
-const Stores = ({ data,handleStoreSearch,setHandleStoreSearch }: any) => {
-  // const [handleStoreSearch,setHandleStoreSearch]= useState("")
-  console.log(data);
-console.log(handleStoreSearch);
-
+const Stores = ({ data, isLoading }:any) => {
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   // const {data,isLoading} = useGetStoreQuery(undefined)
   return (
     <div className="max-w-5xl mx-auto py-10">
 
 
-      <label className="input input-bordered flex items-center gap-2">
+      {/* <label className="input input-bordered flex items-center gap-2">
         <input
          value={handleStoreSearch}
          onChange={(e) => setHandleStoreSearch(e.target.value)}
@@ -32,17 +24,22 @@ console.log(handleStoreSearch);
             d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
             clipRule="evenodd" />
         </svg>
-      </label>
+      </label> */}
       <h2 className="text-3xl font-bold text-center mb-6">Nearby Kitchens</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<<<<<<< HEAD
         {data?.data?.map((item: IStores, index: number) => (
+=======
+        {data?.data?.map((item: any, index: number) => (
+>>>>>>> 4f1833b3f0ad13ca0b5e3fed594e022b884dcc92
           <StoreCart key={index} data={item} />
         ))}
       </div>
     </div>
   );
 };
+
 
 // Helper function to render star ratings
 // const getStars = (rating:any) => {

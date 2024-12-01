@@ -13,26 +13,26 @@ export const storeApi = baseApi.injectEndpoints({
         }),
 
         getStore: build.query({
-            query: ({ seachableFiled,priceRange, deliveryTime, category, cuisines,lat,lng }) => {
+            query: ({ priceRange, deliveryTime, category, cuisines, lat, lng, search }) => {
                 // Build query parameters dynamically
+                // console.log(search);
+                
                 const params = new URLSearchParams();
                 if (priceRange) params.append("priceRange", priceRange);
                 if (deliveryTime) params.append("deliveryTime", deliveryTime);
                 if (category) params.append("category", category);
-                if(lat && lng)
-                {
-                    params.append("lat",lat);
-                    params.append("lng",lng);
+                if (lat && lng) {
+                    params.append("lat", lat);
+                    params.append("lng", lng);
                 }
                 if (cuisines && cuisines.length > 0) {
                     console.log(cuisines);
-                    
+
                     params.append("cuisines", cuisines);
                 }
-                if(seachableFiled)
-                {
-                    params.append("seachableFiled",seachableFiled)
-                }
+                if (search) params.append("search", search)
+                // console.log("hi store",search,params);
+                    
 
                 return {
                     url: `/stores?${params.toString()}`, // Attach query parameters
