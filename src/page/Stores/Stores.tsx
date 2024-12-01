@@ -28,11 +28,7 @@ const Stores = ({ data, isLoading }:any) => {
       <h2 className="text-3xl font-bold text-center mb-6">Nearby Kitchens</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<<<<<<< HEAD
-        {data?.data?.map((item: IStores, index: number) => (
-=======
         {data?.data?.map((item: any, index: number) => (
->>>>>>> 4f1833b3f0ad13ca0b5e3fed594e022b884dcc92
           <StoreCart key={index} data={item} />
         ))}
       </div>

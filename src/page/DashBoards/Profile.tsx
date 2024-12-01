@@ -82,7 +82,7 @@ const Profile = () => {
 
             {/* Restaurant Details */}
             <div className="flex-1">
-              <h2 className="card-title">{storeData.storeName}</h2>
+              <h2 className="card-title">{storeData?.storeName}</h2>
               <p className="text-sm text-gray-500">{storeData?.pointLocation?.storeAddress}</p>
 
               <div className="mt-4 flex items-center space-x-4">

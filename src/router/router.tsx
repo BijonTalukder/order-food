@@ -13,6 +13,7 @@ import CreateProduct from "../page/DashBoards/Product/CreateProduct";
 import StoreLayoutComponent from "../component/StoreLayoutComponent/StoreLayoutComponent";
 import CheckoutPage from "../page/Checkout/Checkout";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import ListProduct from "../page/DashBoards/Product/ListProduct";
 // import PrivateRoute from "./PrivateRoute/PrivateRoute";
 // import StoreCart from "../component/StoreLayoutComponent/StoreLayoutComponent";
 // import StoreLaout from "../component/StoreLayoutComponent/"
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
             path:"create-food",
             element:<CreateProduct/>
             
+        },
+        {
+            path:"list-food",
+            element:<ListProduct/>
         }
     ]
    }
