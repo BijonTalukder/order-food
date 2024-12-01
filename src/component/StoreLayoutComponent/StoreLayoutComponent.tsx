@@ -7,6 +7,7 @@ import { useLocation, useSearchParams } from "react-router-dom";
 const StoreLayoutComponent = () => {
   const location = useLocation(); 
   const queryParams = new URLSearchParams(location.search); // Parse the query string
+  const [handleStoreSearch,setHandleStoreSearch]= useState("")
 
   // Extract 'lat' and 'lng' parameters
   const lat = queryParams.get("lat");
@@ -24,7 +25,8 @@ const StoreLayoutComponent = () => {
     category,
     cuisines: selectedCuisines,
     lat,
-    lng
+    lng,
+    seachableFiled:handleStoreSearch
   })
   console.log(priceRange,deliveryTime,category,selectedCuisines);
   
@@ -42,7 +44,7 @@ const StoreLayoutComponent = () => {
       />
 
       <div className="col-span-9">
-        <Stores data={data} />
+        <Stores data={data} setHandleStoreSearch={setHandleStoreSearch} handleStoreSearch={handleStoreSearch} />
       </div>
     </div>
   );

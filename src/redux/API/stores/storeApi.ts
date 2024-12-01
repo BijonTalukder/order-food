@@ -13,7 +13,7 @@ export const storeApi = baseApi.injectEndpoints({
         }),
 
         getStore: build.query({
-            query: ({ priceRange, deliveryTime, category, cuisines,lat,lng }) => {
+            query: ({ seachableFiled,priceRange, deliveryTime, category, cuisines,lat,lng }) => {
                 // Build query parameters dynamically
                 const params = new URLSearchParams();
                 if (priceRange) params.append("priceRange", priceRange);
@@ -28,6 +28,10 @@ export const storeApi = baseApi.injectEndpoints({
                     console.log(cuisines);
                     
                     params.append("cuisines", cuisines);
+                }
+                if(seachableFiled)
+                {
+                    params.append("seachableFiled",seachableFiled)
                 }
 
                 return {
