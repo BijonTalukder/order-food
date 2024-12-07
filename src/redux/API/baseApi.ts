@@ -3,7 +3,7 @@ import { axiosBaseQuery } from '../../helpers/axios/axiosBaseQuery';
 
 export const baseApi = createApi({
   reducerPath: 'api',
-  baseQuery: axiosBaseQuery({ baseUrl:'http://localhost:5000/api/v1' }),
+  baseQuery: axiosBaseQuery({ baseUrl:'https://books-backend-core-2k89qyhfc-bijontalukders-projects.vercel.app/api/v1/' }),
   endpoints: (builder) => ({
     getProductType: builder.query({
       query: () => ({
