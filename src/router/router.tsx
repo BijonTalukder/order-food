@@ -14,6 +14,7 @@ import StoreLayoutComponent from "../component/StoreLayoutComponent/StoreLayoutC
 import CheckoutPage from "../page/Checkout/Checkout";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import ListProduct from "../page/DashBoards/Product/ListProduct";
+import PaymentSuccess from "../page/PaymentSuccess/PaymentSuccess";
 // import PrivateRoute from "./PrivateRoute/PrivateRoute";
 // import StoreCart from "../component/StoreLayoutComponent/StoreLayoutComponent";
 // import StoreLaout from "../component/StoreLayoutComponent/"
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
     {
         path:'/checkout',
         element:<CheckoutPage/>
+    },
+    {
+        path:"payment-success",
+        element:<PaymentSuccess/>
     },
    {
 
@@ -75,7 +80,7 @@ const router = createBrowserRouter([
             
         },
         {
-            path:"list-food",
+            path:"c",
             element:<ListProduct/>
         }
     ]

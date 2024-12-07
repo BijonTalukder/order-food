@@ -15,9 +15,7 @@ const Profile = () => {
   const user = sessionManager.getItem("user");
 
   const { data, isLoading, isSuccess } = useGetSingleStoreQuery(user?.storeId);
-  // const [toggleStatus] = useToggleStoreStatusMutation();
   const storeData = data?.data[0] || null;
-  console.log(storeData);
 
   const [isOpen, setIsOpen] = useState(false);
   const [profileImage, setProfileImage] = useState("/default-restaurant.png");
