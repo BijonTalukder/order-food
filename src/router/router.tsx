@@ -15,6 +15,7 @@ import CheckoutPage from "../page/Checkout/Checkout";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import ListProduct from "../page/DashBoards/Product/ListProduct";
 import PaymentSuccess from "../page/PaymentSuccess/PaymentSuccess";
+import SellerOrderManagement from "../page/DashBoards/stores/Order/PendingOrder";
 // import PrivateRoute from "./PrivateRoute/PrivateRoute";
 // import StoreCart from "../component/StoreLayoutComponent/StoreLayoutComponent";
 // import StoreLaout from "../component/StoreLayoutComponent/"
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
         {
             path:"c",
             element:<ListProduct/>
+        },
+        {
+            path:"order",
+            element:<SellerOrderManagement/>
         }
     ]
    }
