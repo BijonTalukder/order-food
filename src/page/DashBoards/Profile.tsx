@@ -33,18 +33,18 @@ const Profile = () => {
     cuisine: "Modern Local",
   };
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
+  const handleImageUpload = (event:React.ChangeEvent<HTMLInputElement>) => {
+    const file = event?.target?.files?event?.target?.files[0]: null;
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProfileImage(reader.result);
+        setProfileImage(reader?.result as string);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleWorkingHoursChange = (e) => {
+  const handleWorkingHoursChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setWorkingHours(prev => ({
       ...prev,
