@@ -1,83 +1,45 @@
 import React, { useState } from 'react';
-
-const mockOrders = [
-  {
-    id: 'ORD-2024-001',
-    customerName: 'John Doe',
-    email: 'john.doe@example.com',
-    phone: '+1 (555) 123-4567',
-    items: [
-      { name: 'Vintage Leather Jacket', quantity: 1, price: 199.99 },
-      { name: 'Wool Scarf', quantity: 2, price: 49.99 }
-    ],
-    totalAmount: 299.97,
-    shippingAddress: '123 Fashion Street, Style City, ST 12345',
-    orderDate: '2024-03-15T10:30:00Z',
-    status: 'pending',
-    paymentMethod: 'Credit Card',
-    shippingMethod: 'Express Delivery'
-  },
-  {
-    id: 'ORD-2024-002',
-    customerName: 'Jane Smith',
-    email: 'jane.smith@example.com',
-    phone: '+1 (555) 987-6543',
-    items: [
-      { name: 'Running Shoes', quantity: 1, price: 129.99 },
-      { name: 'Sports Water Bottle', quantity: 1, price: 24.99 }
-    ],
-    totalAmount: 154.98,
-    shippingAddress: '456 Athletic Avenue, Fitness Town, FT 67890',
-    orderDate: '2024-03-16T14:45:00Z',
-    status: 'pending',
-    paymentMethod: 'PayPal',
-    shippingMethod: 'Standard Shipping'
-  }
-];
+import { useGetOrderByStoreQuery } from '../../../../redux/API/order/orderApi';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store';
+import Pagination from '../../../../component/Pagination/Pagination';
 
 const SellerOrderManagement = () => {
-  const [orders, setOrders] = useState(mockOrders);
+  const userData = useSelector((state: RootState) => state.user.userData);
   const [filter, setFilter] = useState('all');
-  const [expandedOrder, setExpandedOrder] = useState(null);
+  const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
 
-  const filteredOrders = orders.filter(order => {
-    if (filter === 'pending') return order.status === 'pending';
-    if (filter === 'accepted') return order.status === 'accepted';
-    if (filter === 'rejected') return order.status === 'rejected';
+  const { data, isLoading, isSuccess } = useGetOrderByStoreQuery(userData.storeId);
+
+
+  console.log(data.data.pagination);
+  
+  const filteredOrders = data?.data?.orders.filter((order: any) => {
+    if (filter === 'pending') return order.orderStatus === 'Pending';
+    if (filter === 'accepted') return order.orderStatus === 'Accepted';
+    if (filter === 'rejected') return order.orderStatus === 'Rejected';
     return true;
-  });
+  }) || [];
 
-  const handleAcceptOrder = (orderId) => {
-    setOrders(prevOrders => 
-      prevOrders.map(order => 
-        order.id === orderId 
-          ? { ...order, status: 'accepted' } 
-          : order
-      )
-    );
+  const handleAcceptOrder = (orderId: string) => {
+    // Logic to accept the order
   };
 
-  const handleRejectOrder = (orderId) => {
-    setOrders(prevOrders => 
-      prevOrders.map(order => 
-        order.id === orderId 
-          ? { ...order, status: 'rejected' } 
-          : order
-      )
-    );
+  const handleRejectOrder = (orderId: string) => {
+    // Logic to reject the order
   };
 
-  const toggleOrderExpansion = (orderId) => {
+  const toggleOrderExpansion = (orderId: string) => {
     setExpandedOrder(expandedOrder === orderId ? null : orderId);
   };
 
-  const getStatusBadge = (status) => {
-    switch(status) {
-      case 'pending':
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case 'Pending':
         return 'badge-warning';
-      case 'accepted':
+      case 'Accepted':
         return 'badge-success';
-      case 'rejected':
+      case 'Rejected':
         return 'badge-error';
       default:
         return 'badge-neutral';
@@ -89,7 +51,6 @@ const SellerOrderManagement = () => {
       {/* Header and Filter */}
       <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
         <h1 className="text-3xl font-bold text-gray-800">Order Management</h1>
-        
         <div className="flex items-center space-x-2">
           <span className="text-gray-600 font-medium">Filter:</span>
           <select
@@ -119,26 +80,26 @@ const SellerOrderManagement = () => {
 
       {/* Orders List */}
       <div className="space-y-4">
-        {filteredOrders.map(order => (
-          <div 
-            key={order.id} 
+        {isSuccess && filteredOrders.map((order: any) => (
+          <div
+            key={order._id}
             className="card bg-white shadow-md rounded-lg border border-gray-200 transition-all duration-300 hover:shadow-lg"
           >
             {/* Order Header */}
-            <div 
+            <div
               className="card-header flex justify-between items-center p-4 cursor-pointer hover:bg-gray-50 transition-colors"
-              onClick={() => toggleOrderExpansion(order.id)}
+              onClick={() => toggleOrderExpansion(order._id)}
             >
               <div className="flex items-center space-x-4">
-                <span className={`badge ${getStatusBadge(order.status)} badge-md`}>
-                  {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                <span className={`badge ${getStatusBadge(order.orderStatus)} badge-md`}>
+                  {order.orderStatus.charAt(0).toUpperCase() + order.orderStatus.slice(1)}
                 </span>
                 <div>
                   <div className="font-bold text-lg text-gray-800">
-                    {order.customerName}
+                    {order.userId}
                   </div>
                   <div className="text-sm text-gray-500">
-                    Order #{order.id}
+                    Order #{order.orderId}
                   </div>
                 </div>
               </div>
@@ -148,16 +109,16 @@ const SellerOrderManagement = () => {
             </div>
 
             {/* Expanded Order Details */}
-            {expandedOrder === order.id && (
+            {expandedOrder === order._id && (
               <div className="card-body p-4 bg-gray-50 rounded-b-lg">
                 <div className="grid md:grid-cols-2 gap-4">
                   {/* Customer Information */}
                   <div>
                     <h3 className="text-lg font-semibold mb-2 text-gray-700">Customer Details</h3>
                     <div className="space-y-2 text-gray-600">
-                      <p><strong>Name:</strong> {order.customerName}</p>
-                      <p><strong>Email:</strong> {order.email}</p>
-                      <p><strong>Phone:</strong> {order.phone}</p>
+                      <p><strong>Name:</strong> {order.userId}</p>
+                      <p><strong>Email:</strong> {order.userId}</p>
+                      <p><strong>Phone:</strong> {order.userId}</p>
                     </div>
                   </div>
 
@@ -165,8 +126,7 @@ const SellerOrderManagement = () => {
                   <div>
                     <h3 className="text-lg font-semibold mb-2 text-gray-700">Order Information</h3>
                     <div className="space-y-2 text-gray-600">
-                      <p><strong>Order Date:</strong> {new Date(order.orderDate).toLocaleDateString()}</p>
-                      <p><strong>Shipping Method:</strong> {order.shippingMethod}</p>
+                      <p><strong>Order Date:</strong> {new Date(order.placedAt).toLocaleDateString()}</p>
                       <p><strong>Payment Method:</strong> {order.paymentMethod}</p>
                     </div>
                   </div>
@@ -185,16 +145,16 @@ const SellerOrderManagement = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {order.items.map((item, index) => (
+                        {order.items.map((item: any, index: number) => (
                           <tr key={index} className="border-b">
-                            <td className="p-2">{item.name}</td>
+                            <td className="p-2">{item.productName}</td>
                             <td className="p-2 text-center">{item.quantity}</td>
                             <td className="p-2 text-right">${item.price.toFixed(2)}</td>
                           </tr>
                         ))}
                         <tr className="font-bold bg-gray-100">
                           <td className="p-2">Total</td>
-                          <td className="p-2 text-center">{order.items.reduce((sum, item) => sum + item.quantity, 0)}</td>
+                          <td className="p-2 text-center">{order.items.reduce((sum: number, item: any) => sum + item.quantity, 0)}</td>
                           <td className="p-2 text-right">${order.totalAmount.toFixed(2)}</td>
                         </tr>
                       </tbody>
@@ -205,26 +165,26 @@ const SellerOrderManagement = () => {
                 {/* Shipping Address */}
                 <div className="mt-4">
                   <h3 className="text-lg font-semibold mb-2 text-gray-700">Shipping Address</h3>
-                  <p className="text-gray-600">{order.shippingAddress}</p>
+                  <p className="text-gray-600">{order.deliveryAddress}</p>
                 </div>
 
                 {/* Order Actions */}
-                {order.status === 'pending' && (
+                {order.orderStatus === 'Pending' && (
                   <div className="mt-4 flex space-x-4">
-                    <button 
+                    <button
                       className="btn btn-success flex-1"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleAcceptOrder(order.id);
+                        handleAcceptOrder(order._id);
                       }}
                     >
                       Accept Order
                     </button>
-                    <button 
+                    <button
                       className="btn btn-error flex-1"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleRejectOrder(order.id);
+                        handleRejectOrder(order._id);
                       }}
                     >
                       Reject Order
@@ -233,7 +193,7 @@ const SellerOrderManagement = () => {
                 )}
 
                 {/* Status Indicators */}
-                {order.status === 'accepted' && (
+                {order.orderStatus === 'Accepted' && (
                   <div className="alert alert-success mt-4">
                     <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -241,10 +201,10 @@ const SellerOrderManagement = () => {
                     <span>Order Accepted</span>
                   </div>
                 )}
-                {order.status === 'rejected' && (
+                {order.orderStatus === 'Rejected' && (
                   <div className="alert alert-error mt-4">
                     <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span>Order Rejected</span>
                   </div>
@@ -254,6 +214,7 @@ const SellerOrderManagement = () => {
           </div>
         ))}
       </div>
+      <Pagination  total={data?.data?.pagination?.total} limit={data?.data?.pagination?.limit} page={data?.data?.pagination?.page}  totalPages={data?.data?.totalPages}/>
     </div>
   );
 };
