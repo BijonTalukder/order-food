@@ -1,11 +1,15 @@
-const Pagination = ({ page = 1, limit = 10, totalPages = 1,total, onPageChange }) => {
-  const paginationConfig = {
-    pageSize: 5,
-    total: 20,
-    // pageSizeOptions: [5, 10, 20],
-    // showSizeChanger: showSizeChanger,
-    // onChange: onPaginationChange,
-  };
+import React from "react";
+
+interface PaginationProps {
+  page?: number;
+  limit?: number;
+  totalPages?: number;
+  total: number;
+  onPageChange: (page: number) => void;
+}
+
+const Pagination:React.FC<PaginationProps> = ({ page = 1, limit = 10, totalPages = 1,total=0, onPageChange }) => {
+
   const getPaginationButtons = () => {
     const buttons = [];
     for (let i = 1; i <= totalPages; i++) {

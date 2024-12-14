@@ -9,6 +9,7 @@ import {
   ChevronRight 
 } from "lucide-react";
 import { Outlet, Link } from "react-router-dom";
+import { FaFirstOrder } from "react-icons/fa";
 
 // Define types for menu items
 interface SubMenuItem {
@@ -62,7 +63,13 @@ const DashboardLayout: React.FC = () => {
     },
     {
       section: "Management",
+
       items: [
+        {
+          icon:<FaFirstOrder/>,
+          title:"Pending Order",
+          link:"/dashboard/order"
+        },
         {
           icon: <Settings className="w-5 h-5" />,
           title: "Store Settings",
