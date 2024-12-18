@@ -15,7 +15,7 @@ export const orderApi = baseApi.injectEndpoints(
                 getOrderByStore: build.query({
                     query: ({ storeId, orderStatus, searchTerm, limit, page, sortBy, sortOrder }) => {
                         
-                        console.log(storeId);
+                        // console.log(storeId);
                         
                         const params = new URLSearchParams();
                         if (orderStatus) params.append("orderStatus", orderStatus);
@@ -30,6 +30,15 @@ export const orderApi = baseApi.injectEndpoints(
                             method: "GET",
                         };
                     },
+                }),
+                updateOrder:build.mutation({
+                    query:(data)=>({
+                        url:"",
+                        method:"",
+                        data
+
+                    })
+
                 })
             }
         )

@@ -1,4 +1,4 @@
-import React from "react";
+
 import SkeletonLoader from "./SkeletonLoader";
 import Pagination from "../Pagination/Pagination";
 
@@ -87,7 +87,7 @@ const PTable = ({ data, columns }: any) => {
               </tfoot>
             </table>
           </div>
-          <Pagination />
+          {/* <Pagination /> */}
         </>
       )}
     </div>
