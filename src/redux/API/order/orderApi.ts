@@ -32,9 +32,11 @@ export const orderApi = baseApi.injectEndpoints(
                     },
                 }),
                 updateOrder:build.mutation({
-                    query:(data)=>({
-                        url:"",
-                        method:"",
+                    query:({data,id})=>({
+
+              
+                        url:`/order/${id}`,
+                        method:"PUT",
                         data
 
                     })
@@ -45,4 +47,4 @@ export const orderApi = baseApi.injectEndpoints(
     }
 )
 
-export const { useCreateOrderMutation, useGetOrderByStoreQuery } = orderApi
+export const { useCreateOrderMutation, useGetOrderByStoreQuery,useUpdateOrderMutation } = orderApi

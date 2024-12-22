@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useGetOrderByStoreQuery } from '../../../../redux/API/order/orderApi';
+import { useGetOrderByStoreQuery, useUpdateOrderMutation } from '../../../../redux/API/order/orderApi';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import Pagination from '../../../../component/Pagination/Pagination';
+import Swal from 'sweetalert2';
 
 const SellerOrderManagement = () => {
   const userData = useSelector((state: RootState) => state.user.userData);
@@ -22,12 +23,26 @@ const SellerOrderManagement = () => {
     sortOrder,
   });
 
+  const [setUpdateOrderData,{isSuccess:updateOrderSuccess}] = useUpdateOrderMutation()
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
 
-  const handleAcceptOrder = (orderId: string) => {
+  const handleAcceptOrder = async(orderId: string) => {
+    console.log(orderId);
+    
+   const res= await setUpdateOrderData({id:orderId,data:{orderStatus:"Accepted"}})
+   console.log(res);
+   
+    if(updateOrderSuccess)
+    {
+      Swal.fire({
+        icon: 'success',
+        title: 'Order Accepted',
+      })
+    }
     // Logic to accept the order
   };
 
